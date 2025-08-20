@@ -1,0 +1,60 @@
+<odoo>
+    <record id="rental.vehicle_model_form" model="ir.ui.view">
+        <field name="name">rental.vehicle.model.form</field>
+        <field name="model">rental.vehicle.model</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle model">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="manufacturer" options="{'no_create': 1}"/>
+                        <field name="year"/>
+                        <field name="vehicle_type_id"/>
+                        <field name="displacement"/>
+                        <field name="max_power"/>
+                        <field name="top_speed"/>
+                        <field name="transmission"/>
+                        <field name="transmission_type"/>
+                        <field name="weight"/>
+                        <field name="image"/>
+                    </group>
+
+                    <separator string="Maintenance plans"/>
+
+                    <field name="maintenance_plan_ids">
+                        <list>
+                            <field name="service_type"/>
+                            <field name="interval_km"/>
+                            <field name="interval_days"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="rental.vehicle_model_list" model="ir.ui.view">
+        <field name="name">rental.tarif.tree</field>
+        <field name="model">rental.vehicle.model</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="manufacturer"/>
+                <field name="year"/>
+                <field name="vehicle_type_id"/>
+                <field name="displacement"/>
+                <field name="max_power"/>
+                <field name="top_speed"/>
+                <field name="transmission"/>
+                <field name="transmission_type"/>
+                <field name="weight"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="rental.vehicle_model_window" model="ir.actions.act_window">
+        <field name="name">Vehicle models</field>
+        <field name="res_model">rental.vehicle.model</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,42 @@
+<odoo>
+    <menuitem id="menu_rental_root"
+              name="Аренда"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_vehicles"
+              name="Транспорт"
+              parent="menu_rental_root"
+              action="rental.vehicle_window"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_orders"
+              name="Заказы"
+              parent="menu_rental_root"
+              action="rental.rental_window"
+              sequence="20"/>
+
+    <menuitem id="menu_rental_tarif"
+              name="Tarifs"
+              parent="menu_rental_root"
+              action="rental_tarif_window"
+              sequence="30"/>
+
+    <menuitem id="menu_rental_office"
+              name="Offices"
+              parent="menu_rental_root"
+              action="rental.office_window"
+              sequence="40"/>
+
+    <menuitem id="menu_vehicle_model"
+              name="Vehicle Models"
+              parent="menu_rental_root"
+              action="rental.vehicle_model_window"
+              sequence="50"/>
+
+    <menuitem id="menu_manufacturer"
+              name="Manufacturers"
+              parent="menu_rental_root"
+              action="rental.manufacturer_window"
+              sequence="60"/>
+
+</odoo>

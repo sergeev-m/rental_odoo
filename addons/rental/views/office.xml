@@ -1,0 +1,39 @@
+<odoo>
+  <record id="rental.office_form" model="ir.ui.view">
+    <field name="name">rental.office.form</field>
+    <field name="model">rental.office</field>
+    <field name="arch" type="xml">
+      <form string="Rental office">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="city"/>
+            <field name="country_id"/>
+            <field name="currency_id"/>
+            <field name="vehicle_ids"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="rental.office_list" model="ir.ui.view">
+        <field name="name">rental.office.list</field>
+        <field name="model">rental.office</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="city"/>
+                <field name="country_id"/>
+                <field name="currency_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="rental.office_window" model="ir.actions.act_window">
+        <field name="name">Offices</field>
+        <field name="res_model">rental.office</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

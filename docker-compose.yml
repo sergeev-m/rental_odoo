@@ -1,0 +1,42 @@
+x-odoo-common: &odoo-common
+  image: rent-moto-odoo
+  build: .
+  restart: always
+  volumes:
+    - rent-moto-odoo-web-data:/var/lib/odoo
+    - ./addons:/mnt/extra-addons
+    - ./conf:/etc/odoo
+    - ./wait-for-postgres.sh:/usr/local/bin/wait-for-postgres.sh
+  depends_on:
+    - rent_moto_odoo_db
+  logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  rent-moto-odoo-web-data:
+  rent-moto-odoo-db-data:
+
+services:
+  rent_moto_odoo_db:
+    container_name: rent_moto_odoo_db
+    image: postgres:16
+    restart: always
+    volumes:
+      - rent-moto-odoo-db-data:/var/lib/postgresql/data/pgdata
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+
+  rent_moto_odoo:
+    <<: *odoo-common
+    container_name: rent_moto_odoo
+    command: [ "/usr/local/bin/wait-for-postgres.sh" ]
+    expose:
+      - 8096
+    ports:
+      - "8069:8069"
