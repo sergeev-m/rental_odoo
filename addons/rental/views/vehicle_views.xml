@@ -4,58 +4,31 @@
     <field name="model">rental.vehicle</field>
     <field name="arch" type="xml">
       <form string="Vehicle">
-<!--         <sheet>
-          
-          <div class="oe_title">
-            <h1><field name="name"/></h1>
-          </div>
 
-          <group>
-            <field name="model_id"/>
-            <field name="plate_number"/>
-            <field name="serial_number"/>
-            <field name="mileage"/>
-            <field name="office_id"/>
-            <field name="status"/>
-          </group>
-          <notebook>
-            <page string="Upcoming Maintenance">
-              <field name="maintenance_due_ids"/>
-            </page>
-
-            <page string='Maintenance log'>
-              <field name="maintenance_log_ids">
-                <list>
-                  <field name="date"/>
-                  <field name="mileage"/>
-                  <field name="note"/>
-                  <field name="cost_line_ids"/>
-                  <field name="total_cost"/>
-                  <field name="currency_id"/>
-                </list>
-              </field>
-            </page>
-          </notebook>
-        </sheet> -->
+        <header>
+          <field name="status" widget="statusbar"/>
+        </header>
 
         <sheet>
-          
-          <div class="oe_title">
-            <h1><field name="name"/></h1>
+          <div class="oe_button_box" name="button_box">
+              <button name="action_view_orders"
+                      type="object"
+                      class="oe_stat_button"
+                      icon="fa-list">
+                  <field string="Заказы" name="order_ids" widget="statinfo"/>
+              </button>
           </div>
-
+          
           <group>
             <group>
+              <field name="office_id"/>
               <field name="model_id"/>
               <field name="plate_number"/>
               <field name="serial_number"/>
-              <field name="vehicle_type_id"/>
+              <field name="vehicle_type_id" invisible="1"/>
               <field name="mileage"/>
-              <field name="office_id"/>
-              <field name="status"/>
             </group>
 
-            <!-- <group string="Upcoming Maintenance" colspan="2" col="2"> -->
             <group>
               <field name="maintenance_due_ids" nolabel="1">
                 <list decoration-danger="overdue" decoration-warning="is_due and not overdue">
@@ -87,6 +60,21 @@
     </field>
   </record>
 
+  <record id="rental.vehicle_list" model="ir.ui.view">
+    <field name="name">rental.vehicle.list</field>
+    <field name="model">rental.vehicle</field>
+    <field name="arch" type="xml">
+        <list>
+          <field name="office_id"/>
+          <field name="model_id"/>
+          <field name="plate_number"/>
+          <field name="serial_number"/>
+          <field name="vehicle_type_id"/>
+          <field name="mileage"/>
+          <field name="status"/>
+        </list>
+    </field>
+  </record>
 
   <record model="ir.actions.act_window" id="rental.vehicle_window">
     <field name="name">Vehicle</field>

@@ -32,7 +32,6 @@ class Tarif(models.Model):
     min_days = fields.Integer(string="Минимум дней", required=True)
     max_days = fields.Integer(string="Максимум дней", required=True)
 
-
     def _compute_display_name(self):
         for rec in self:
             values = (rec.price, rec.currency_id.symbol)

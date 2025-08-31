@@ -39,9 +39,10 @@
         <field name="model">rental.maintenance.due</field>
         <field name="arch" type="xml">
             <list decoration-danger="overdue" decoration-warning="is_due and not overdue">
-                <field name="vehicle_name"/>
+                <field name="vehicle_id"/>
+                <!-- <field name="vehicle_name"/> -->
                 <field name="office_id"/>
-                <field name="model_id"/>
+                <!-- <field name="model_id"/> -->
                 <field name="service_type_id"/>
                 <field name="last_service_date"/>
                 <field name="last_service_mileage"/>
@@ -73,7 +74,7 @@
             
               <div class="o_kanban_details">
                 <strong>
-                  <field name="vehicle_name"/>
+                  <field name="vehicle_id"/>
                 </strong>
                 <div class="text-muted">
                   <field name="service_type_id"/>

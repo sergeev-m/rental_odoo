@@ -5,10 +5,9 @@ class MaintenanceDueView(models.Model):
     _name = "rental.maintenance.due"
     _description = "Maintenance Due (SQL View)"
     _auto = False
-    _rec_name = "vehicle_name"
+    _rec_name = "vehicle_id"
 
-    vehicle_id = fields.Many2one("rental.vehicle", readonly=True)
-    vehicle_name = fields.Char(readonly=True)
+    vehicle_id = fields.Many2one("rental.vehicle", readonly=True, index=True)
     office_id = fields.Many2one("rental.office", readonly=True)
     model_id = fields.Many2one("rental.vehicle.model", readonly=True)
 
@@ -63,9 +62,9 @@ class MaintenanceDueView(models.Model):
                 ORDER BY l.vehicle_id, cl.service_type_id, l.date DESC, cl.id DESC
             )
             SELECT
-                row_number() OVER() AS id,
+                (v.id * 100000 + st.id) AS id,
                 v.id AS vehicle_id,
-                v.name AS vehicle_name,
+                -- v.name AS vehicle_name,
                 v.office_id AS office_id,
                 v.model_id AS model_id,
                 st.id AS service_type_id,
@@ -120,15 +119,6 @@ class MaintenanceDueView(models.Model):
                 ) AS days_to_due,
 
                 -- Флаги "пора" и "просрочено"
-                -- (
-                --     CASE
-                --       WHEN (mst.interval_km > 0 AND v.mileage >= COALESCE(ll.mileage,0)+mst.interval_km)
-                --         OR (mst.interval_days > 0 AND (
-                --             (COALESCE(ll.service_date, v.create_date::date) + (mst.interval_days || ' days')::interval)::date
-                --           ) >= CURRENT_DATE)
-                --       THEN TRUE ELSE FALSE
-                --     END
-                -- ) AS is_due,
                 (
                     CASE
                       WHEN (mst.interval_km > 0 AND (COALESCE(ll.mileage,0)+mst.interval_km - v.mileage) <= mst.remind_before_km)

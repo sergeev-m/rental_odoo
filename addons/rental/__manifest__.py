@@ -14,7 +14,7 @@
         "views/manufacturer.xml",
         # "views/maintenance_status_views.xml",
         # "views/maintenance_log_views.xml",
-        "views/rental.xml",
+        "views/order.xml",
         "views/office.xml",
         "views/tarif.xml",
         "views/service_type.xml",
