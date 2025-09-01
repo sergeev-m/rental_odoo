@@ -30,13 +30,18 @@ class MaintenanceDueView(models.Model):
     def action_perform_service(self):
         """Создаём запись в журнале обслуживания, обновляем состояние"""
         self.ensure_one()
+        service_type = self.env['rental.service.type'].search(
+            [('id', '=', self.service_type_id.id)],
+            limit=1
+        )
         log = self.env["rental.maintenance.log"].create({
-            "vehicle_id": self.vehicle_id.id,
-            "mileage": self.current_mileage,
-            "note": f"ТО ({self.service_type_id.name}) проведено из формы Due",
-            "cost_line_ids": [(0, 0, {
-                "service_type_id": self.env["rental.service.type"].search([("id", "=", self.service_type_id.id)], limit=1).id,
-            })]  # todo vizard 
+            'vehicle_id': self.vehicle_id.id,
+            'mileage': self.current_mileage,
+            'note': f'ТО ({self.service_type_id.name})',
+            'cost_line_ids': [(0, 0, {
+                'service_type_id': service_type.id,
+                'cost': service_type.default_cost,
+            })]
         })
         return {
             "type": "ir.actions.act_window",

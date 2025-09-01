@@ -6,6 +6,7 @@ class RentalMaintenanceLog(models.Model):
     _name = "rental.maintenance.log"
     _description = "Maintenance Log"
 
+    name = fields.Char(compute='_compute_name')
     vehicle_id = fields.Many2one("rental.vehicle", string="Vehicle", required=True)
     date = fields.Date(default=fields.Date.today, index=True)
     mileage = fields.Integer(required=True)
@@ -13,7 +14,13 @@ class RentalMaintenanceLog(models.Model):
 
     cost_line_ids = fields.One2many("rental.maintenance.cost.line", "log_id", string="Cost Lines")
     total_cost = fields.Float("Total Cost", compute="_compute_total_cost", store=True)
-    currency_id = fields.Many2one("res.currency", required=True, default=lambda s: s.env.company.currency_id)
+    currency_id = fields.Many2one(related='vehicle_id.office_id.currency_id')
+
+    @api.depends('cost_line_ids')
+    def _compute_name(self):
+        for rec in self:
+            cost_list = rec.cost_line_ids.mapped('service_type_id.name')
+            rec.name = '/'.join(cost_list)
 
     @api.depends("cost_line_ids.cost")
     def _compute_total_cost(self):
@@ -23,9 +30,13 @@ class RentalMaintenanceLog(models.Model):
     @api.constrains("mileage")
     def _check_mileage(self):
         for rec in self:
-            if rec.mileage <= 0 or rec.mileage < rec.vehicle_id.mileage:
-                raise ValidationError("Не указан пробег в сервисном обслуживании или пробег меньше реального...")
+            if rec.mileage <= 0 or rec.mileage > rec.vehicle_id.mileage:
+                raise ValidationError("Не указан пробег в сервисном обслуживании или пробег больше реального...")
 
+    @api.onchange('vehicle_id')
+    def _onchange_vehicle_id(self):
+        if self.vehicle_id:
+            self.mileage = self.vehicle_id.mileage
 
 
 class RentalMaintenanceCostLine(models.Model):

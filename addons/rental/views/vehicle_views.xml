@@ -43,9 +43,10 @@
           </group>
 
           <notebook>
-            <page string="Maintenance log">
+            <page string="Maintenance">
               <field name="maintenance_log_ids">
                 <list>
+                  <field name="name"/>
                   <field name="date"/>
                   <field name="mileage"/>
                   <field name="note"/>

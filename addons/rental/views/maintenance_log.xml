@@ -1,0 +1,55 @@
+<odoo>
+    <record id="rental.maintenance_log_form" model="ir.ui.view">
+      <field name="name">rental.maintenance.log.form</field>
+      <field name="model">rental.maintenance.log</field>
+      <field name="arch" type="xml">
+        <form string="Maintenance log">
+          <sheet>
+            
+            <group>
+              <field name="vehicle_id" readonly="1"/>
+              <field name="date"/>
+              <field name="mileage"/>
+            </group>
+
+            <group string="Types of services">
+              <field name="cost_line_ids" nolabel="1">
+                <list>
+                  <field name="service_type_id"/>
+                  <field name="cost" sum="Total"/>
+                </list>
+                <form>
+                  <group>
+                    <field name="service_type_id"/>
+                    <field name="cost"/>
+                  </group>
+                </form>
+              </field>
+            </group>
+            
+            <group>
+              <field name="note"/>
+            </group>
+          
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="rental.maintenance_log_list" model="ir.ui.view">
+      <field name="name">rental.maintenance.log.list</field>
+      <field name="model">rental.maintenance.log</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="vehicle_id"/>
+          <field name="date"/>
+          <field name="mileage"/>
+          <field name="note"/>
+          <field name="total_cost"/>
+          <field name="currency_id"/>
+        </list>
+      </field>
+    </record>
+
+</odoo>
