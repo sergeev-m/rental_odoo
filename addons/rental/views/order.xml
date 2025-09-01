@@ -13,7 +13,8 @@
                 <field name="start_mileage"/>
                 <field name="end_mileage"/>
                 <field name="tarif_id"/>
-                <field name="total_amount"/>
+                <field name="total_amount" sum="total amount"/>
+                <field name="currency_id"/>
                 <field name="deposit_amount"/>
                 <field name="state"/>
             </list>
