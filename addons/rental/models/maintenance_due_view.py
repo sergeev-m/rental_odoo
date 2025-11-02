@@ -55,119 +55,114 @@ class MaintenanceDueView(models.Model):
         tools.drop_view_if_exists(self.env.cr, "rental_maintenance_due")
         self.env.cr.execute("""
             CREATE VIEW rental_maintenance_due AS
-            WITH last_log AS (
+            WITH
+            last_log AS (
                 SELECT DISTINCT ON (l.vehicle_id, cl.service_type_id)
-                       l.vehicle_id,
-                       cl.service_type_id,
-                       l.date        AS service_date,
-                       l.mileage     AS mileage,
-                       cl.id
+                    l.vehicle_id,
+                    cl.service_type_id,
+                    l.date        AS service_date,
+                    l.mileage     AS mileage,
+                    cl.id
                 FROM rental_maintenance_cost_line cl
                 JOIN rental_maintenance_log l ON l.id = cl.log_id
                 ORDER BY l.vehicle_id, cl.service_type_id, l.date DESC, cl.id DESC
-            )
-            SELECT
-                (v.id * 100000 + st.id) AS id,
-                v.id AS vehicle_id,
-                -- v.name AS vehicle_name,
-                v.office_id AS office_id,
-                v.model_id AS model_id,
-                st.id AS service_type_id,
+            ),
 
-                COALESCE(ll.service_date, v.create_date::date) AS last_service_date,
-                COALESCE(ll.mileage, 0) AS last_service_mileage,
+            calc AS (
+                SELECT
+                    (v.id * 100000 + st.id) AS id,
+                    v.id AS vehicle_id,
+                    v.office_id AS office_id,
+                    v.model_id AS model_id,
+                    st.id AS service_type_id,
+                    v.mileage AS current_mileage,
+                    mst.remind_before_km,
+                    mst.remind_before_days,
+                    mst.interval_km,
+                    mst.interval_days,
+                    COALESCE(ll.service_date, v.create_date::date) AS last_service_date,
+                    COALESCE(ll.mileage, 0) AS last_service_mileage,
 
-                -- Дата следующего ТО
-                (
+                    -- Следующая дата и пробег обслуживания
                     CASE
                         WHEN mst.interval_days > 0 THEN
-                            (
-                                COALESCE(ll.service_date, v.create_date::date)
-                                + (mst.interval_days || ' days')::interval
-                            )::date
+                            (COALESCE(ll.service_date, v.create_date::date)
+                            + (mst.interval_days || ' days')::interval)::date
                         ELSE NULL
-                    END
-                ) AS next_service_date,
+                    END AS next_service_date,
 
-                -- Пробег следующего ТО
-                (
                     CASE
                         WHEN mst.interval_km > 0 THEN
                             COALESCE(ll.mileage, 0) + mst.interval_km
                         ELSE NULL
-                    END
-                ) AS next_service_mileage,
+                    END AS next_service_mileage,
 
-                v.mileage AS current_mileage,
 
-                -- Остаток до ТО по пробегу
-                (
+                     -- Остаток до ТО
                     CASE
                         WHEN mst.interval_km > 0 THEN
                             (COALESCE(ll.mileage, 0) + mst.interval_km) - v.mileage
                         ELSE NULL
-                    END
-                ) AS km_to_due,
+                    END AS km_to_due,
 
-                -- Остаток до ТО по дням
-                (
                     CASE
                         WHEN mst.interval_days > 0 THEN
                             (
-                              (
-                                COALESCE(ll.service_date, v.create_date::date)
-                                + (mst.interval_days || ' days')::interval
-                              )::date - CURRENT_DATE
+                                (COALESCE(ll.service_date, v.create_date::date)
+                                + (mst.interval_days || ' days')::interval)::date
+                                - CURRENT_DATE
                             )
                         ELSE NULL
-                    END
-                ) AS days_to_due,
+                    END AS days_to_due
 
-                -- Флаги "пора" и "просрочено"
-                (
-                    CASE
-                      WHEN (mst.interval_km > 0 AND (COALESCE(ll.mileage,0)+mst.interval_km - v.mileage) <= mst.remind_before_km)
-                        OR (mst.interval_days > 0 
-                            AND (
-                                (COALESCE(ll.service_date, v.create_date::date) + (mst.interval_days || ' days')::interval)::date - CURRENT_DATE
-                            ) <= mst.remind_before_days)
-                      THEN TRUE ELSE FALSE
-                    END
-                ) AS is_due,
+                FROM rental_vehicle v
+                JOIN rental_vehicle_model m ON m.id = v.model_id
+                JOIN rental_vehicle_model_maintenance mst ON mst.model_id = m.id
+                JOIN rental_service_type st ON st.id = mst.service_type_id
+                LEFT JOIN last_log ll
+                    ON ll.vehicle_id = v.id
+                    AND ll.service_type_id = mst.service_type_id
+                WHERE v.status != 'inactive'
+            )
 
-                (
-                    CASE
-                      WHEN (mst.interval_km > 0 AND v.mileage > COALESCE(ll.mileage,0)+mst.interval_km)
-                        OR (mst.interval_days > 0 AND (
-                            (COALESCE(ll.service_date, v.create_date::date) + (mst.interval_days || ' days')::interval)::date
-                          ) > CURRENT_DATE)
-                      THEN TRUE ELSE FALSE
-                    END
-                ) AS overdue,
+            SELECT
+                id,
+                vehicle_id,
+                office_id,
+                model_id,
+                service_type_id,
+                last_service_date,
+                last_service_mileage,
+                current_mileage,
+                next_service_date,
+                next_service_mileage,
+                km_to_due,
+                days_to_due,
 
-                (
-                    CASE
-                      WHEN (mst.interval_km > 0 AND (COALESCE(ll.mileage,0)+mst.interval_km - v.mileage) < 0)
-                        OR (mst.interval_days > 0 AND (
-                            (COALESCE(ll.service_date, v.create_date::date) + (mst.interval_days || ' days')::interval)::date - CURRENT_DATE
-                          ) <= 0)
-                      THEN 1
-                      WHEN (mst.interval_km > 0 AND (COALESCE(ll.mileage,0)+mst.interval_km - v.mileage) <= mst.remind_before_km)
-                        OR (mst.interval_days > 0 
-                            AND (
-                                (COALESCE(ll.service_date, v.create_date::date) + (mst.interval_days || ' days')::interval)::date - CURRENT_DATE
-                            ) <= mst.remind_before_days)
-                      THEN 2
-                      ELSE 0
-                    END
-                ) AS color
+                -- Флаг: пора делать ТО
+                CASE
+                    WHEN (interval_km > 0 AND km_to_due <= remind_before_km)
+                        OR (interval_days > 0 AND days_to_due <= remind_before_days)
+                    THEN TRUE ELSE FALSE
+                END AS is_due,
 
-            FROM rental_vehicle v
-            JOIN rental_vehicle_model m ON m.id = v.model_id
-            JOIN rental_vehicle_model_maintenance mst ON mst.model_id = m.id   -- интервалы по типам услуг
-            JOIN rental_service_type st ON st.id = mst.service_type_id     -- справочник услуг
-            LEFT JOIN last_log ll
-              ON ll.vehicle_id = v.id
-             AND ll.service_type_id = mst.service_type_id
-            WHERE v.status != 'inactive';
+                -- Флаг: ТО просрочено
+                CASE
+                    WHEN (interval_km > 0 AND km_to_due < 0)
+                      OR (interval_days > 0 AND days_to_due < 0)
+                    THEN TRUE ELSE FALSE
+                END AS overdue,
+
+                -- Цветовая индикация: 0 = ок, 2 = пора, 1 = просрочено
+                CASE
+                    WHEN (interval_km > 0 AND km_to_due < 0)
+                      OR (interval_days > 0 AND days_to_due < 0)
+                    THEN 1
+                    WHEN (interval_km > 0 AND km_to_due <= remind_before_km)
+                      OR (interval_days > 0 AND days_to_due <= remind_before_days)
+                    THEN 2
+                    ELSE 0
+                END AS color
+
+            FROM calc;
         """)
