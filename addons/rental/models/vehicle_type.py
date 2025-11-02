@@ -6,4 +6,3 @@ class VehicleType(models.Model):
     _description = "Vehicle Type"
 
     name = fields.Char(string="Type Name", required=True)
-    # code = fields.Char(string="Code", required=True)

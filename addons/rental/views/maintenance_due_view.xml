@@ -3,7 +3,7 @@
         <field name="name">rental.maintenance.due.form</field>
         <field name="model">rental.maintenance.due</field>
         <field name="arch" type="xml">
-            <form string="Due Maintenance">
+            <form create="0" string="Due Maintenance">
                 <header>
                   <button name="action_perform_service" type="object" string="Провести ТО"
                           class="btn-primary"
@@ -25,9 +25,9 @@
                     <field name="km_to_due"/>
                     <field name="days_to_due"/>
                   </group>
-                  <group string="Статус">
-                    <field name="is_due"/>
-                    <field name="overdue"/>
+                  <group>
+                    <field name="is_due" invisible="1"/>
+                    <field name="overdue" invisible="1"/>
                   </group>
                 </sheet>
             </form>
@@ -38,7 +38,7 @@
         <field name="name">rental.maintenance.due.list</field>
         <field name="model">rental.maintenance.due</field>
         <field name="arch" type="xml">
-            <list decoration-danger="overdue" decoration-warning="is_due and not overdue">
+            <list create="0" decoration-danger="overdue" decoration-warning="is_due and not overdue">
                 <field name="vehicle_id"/>
                 <!-- <field name="vehicle_name"/> -->
                 <field name="office_id"/>

@@ -7,7 +7,8 @@ class Vehicle(models.Model):
 
     model_id = fields.Many2one("rental.vehicle.model", string="Model", required=True)
     plate_number = fields.Char(required=True)
-    serial_number = fields.Char()
+    year = fields.Char()
+    purchase_price = fields.Integer()
     mileage = fields.Integer(string="Current Mileage", default=0)
     office_id = fields.Many2one("rental.office", string="Office", required=True)
     vehicle_type_id = fields.Many2one(related='model_id.vehicle_type_id')

@@ -9,7 +9,6 @@ class VehicleModel(models.Model):
     manufacturer = fields.Many2one('rental.manufacturer', required=True)
     vehicle_type_id = fields.Many2one("rental.vehicle.type", string="Vehicle Type", required=True)
     maintenance_plan_ids = fields.One2many("rental.vehicle.model.maintenance", "model_id", string="Maintenance Plan")
-    year = fields.Char()
 
     displacement = fields.Float()
     max_power = fields.Float()

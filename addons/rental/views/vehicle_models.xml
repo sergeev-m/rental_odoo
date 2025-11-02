@@ -8,7 +8,6 @@
                     <group>
                         <field name="name"/>
                         <field name="manufacturer" options="{'no_create': 1}"/>
-                        <field name="year"/>
                         <field name="vehicle_type_id"/>
                         <field name="displacement"/>
                         <field name="max_power"/>
@@ -42,7 +41,6 @@
             <list>
                 <field name="name"/>
                 <field name="manufacturer"/>
-                <field name="year"/>
                 <field name="vehicle_type_id"/>
                 <field name="displacement"/>
                 <field name="max_power"/>
