@@ -117,7 +117,6 @@ class MaintenanceDueView(models.Model):
                 LEFT JOIN last_log ll
                     ON ll.vehicle_id = v.id
                     AND ll.service_type_id = mst.service_type_id
-                -- WHERE v.status != 'inactive'
             )
 
             SELECT

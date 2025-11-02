@@ -4,9 +4,10 @@ from odoo import models, fields, api
 class Vehicle(models.Model):
     _name = "rental.vehicle"
     _description = "Vehicle"
-    _order="vehicle_type_id,model_id,id desc"
+    _order="id desc"
 
     name = fields.Char(compute='_compute_name', store="True")
+    sequence = fields.Integer(string="Sequence")
     model_id = fields.Many2one("rental.vehicle.model", string="Model", required=True)
     plate_number = fields.Char(required=True)
     year = fields.Char()

@@ -67,6 +67,7 @@
     <field name="model">rental.vehicle</field>
     <field name="arch" type="xml">
         <list>
+          <field name="sequence" widget="handle"/>
           <field name="name"/>
           <field name="office_id" optional="hide"/>
           <field name="model_id" optional="hide"/>
