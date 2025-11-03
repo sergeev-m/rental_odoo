@@ -1,5 +1,6 @@
 <odoo>
-  <record id="rental_vehicle_type_form" model="ir.ui.view">
+
+  <record id="rental.vehicle_type_form" model="ir.ui.view">
     <field name="name">rental.vehicle.type.form</field>
     <field name="model">rental.vehicle.type</field>
     <field name="arch" type="xml">
@@ -12,4 +13,21 @@
       </form>
     </field>
   </record>
+
+  <record id="rental.vehicle_type_list" model="ir.ui.view">
+        <field name="name">rental.type.list</field>
+        <field name="model">rental.vehicle.type</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="rental.vehicle_type_window" model="ir.actions.act_window">
+        <field name="name">Vehicle type</field>
+        <field name="res_model">rental.vehicle.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
 </odoo>

@@ -1,54 +1,69 @@
 <odoo>
+    <!-- Root -->
     <menuitem id="menu_rental_root"
-              name="Аренда"
+              name="Rental"
               sequence="10"/>
 
+    <!-- Main sections -->
     <menuitem id="menu_rental_vehicles"
-              name="Транспорт"
+              name="Vehicles"
               parent="menu_rental_root"
               action="rental.vehicle_window"
               sequence="10"/>
 
     <menuitem id="menu_rental_orders"
-              name="Заказы"
+              name="Orders"
               parent="menu_rental_root"
               action="rental.order_window"
               sequence="20"/>
 
-    <menuitem id="menu_rental_tarif"
-              name="Tarifs"
+    <menuitem id="menu_maintenance_due"
+              name="Maintenance Due"
               parent="menu_rental_root"
-              action="rental_tarif_window"
+              action="rental.maintenance_due_window"
               sequence="30"/>
+
+    <!-- Submenu: References -->
+    <menuitem id="menu_rental_reference_root"
+              name="References"
+              parent="menu_rental_root"
+              sequence="90"/>
+
+    <!-- Reference dictionaries -->
+    <menuitem id="menu_rental_tarif"
+              name="Tariffs"
+              parent="menu_rental_reference_root"
+              action="rental_tarif_window"
+              sequence="10"/>
 
     <menuitem id="menu_rental_office"
               name="Offices"
-              parent="menu_rental_root"
+              parent="menu_rental_reference_root"
               action="rental.office_window"
-              sequence="40"/>
+              sequence="20"/>
 
     <menuitem id="menu_vehicle_model"
               name="Vehicle Models"
-              parent="menu_rental_root"
+              parent="menu_rental_reference_root"
               action="rental.vehicle_model_window"
-              sequence="50"/>
+              sequence="30"/>
+
+    <menuitem id="menu_vehicle_type"
+              name="Vehicle Types"
+              parent="menu_rental_reference_root"
+              action="rental.vehicle_type_window"
+              sequence="40"/>
 
     <menuitem id="menu_manufacturer"
               name="Manufacturers"
-              parent="menu_rental_root"
+              parent="menu_rental_reference_root"
               action="rental.manufacturer_window"
-              sequence="60"/>
+              sequence="50"/>
 
     <menuitem id="menu_service_type"
-              name="Service type"
-              parent="menu_rental_root"
+              name="Service Types"
+              parent="menu_rental_reference_root"
               action="rental.service_type_window"
-              sequence="70"/>
-
-    <menuitem id="menu_maintenance_due"
-              name="Due Maintenance"
-              parent="menu_rental_root"
-              action="rental.maintenance_due_window"
-              sequence="80"/>
+              sequence="60"/>
 
 </odoo>

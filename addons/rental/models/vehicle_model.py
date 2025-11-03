@@ -1,9 +1,18 @@
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class VehicleModel(models.Model):
     _name = "rental.vehicle.model"
     _description = "Vehicle Model"
+
+    _sql_constraints = [
+        (
+            'unique_vehicle_model_name_manufacturer',
+            'UNIQUE (name, manufacturer_id)',
+            'Vehicle model name must be unique per manufacturer!'
+        ),
+    ]
 
     name = fields.Char(required=True)
     manufacturer_id = fields.Many2one('rental.manufacturer', required=True)
@@ -36,6 +45,23 @@ class VehicleModel(models.Model):
             rec.display_name = placeholder % values if values else False
 
 
+    @api.constrains('name', 'manufacturer_id')
+    def _check_unique_name_manufacturer(self):
+        for rec in self:
+            if not rec.name:
+                continue
+
+            domain = [
+                ('id', '!=', rec.id),
+                ('manufacturer_id', '=', rec.manufacturer_id.id),
+                ('name', '=ilike', rec.name.strip()),
+            ]
+            if self.search_count(domain):
+                raise ValidationError(
+                    f'The vehicle model "{rec.name}" already exists for this manufacturer.'
+                )
+
+
 class VehicleModelMaintenance(models.Model):
     _name = "rental.vehicle.model.maintenance"
     _description = "Vehicle Model Maintenance Plan"
@@ -65,3 +91,22 @@ class Manufacturer(models.Model):
     name = fields.Char(
         string='Name',
     )
+
+    _sql_constraints = [
+        ('unique_manufacturer_name', 'unique(name)', 'Manufacturer name must be unique!')
+    ]
+
+    @api.constrains('name')
+    def _check_unique_name(self):
+        for rec in self:
+            if not rec.name:
+                continue
+
+            domain = [
+                ('id', '!=', rec.id),
+                ('name', '=ilike', rec.name.strip()),
+            ]
+            if self.search_count(domain):
+                raise ValidationError(
+                    f'The manufacturer "{rec.name}" already exists.'
+                )
