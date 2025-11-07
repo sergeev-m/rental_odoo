@@ -18,6 +18,7 @@
         "views/tarif.xml",
         "views/service_type.xml",
         "views/maintenance_due_view.xml",
+        "wizard/renter_photo_wizard.xml",
         "views/menu.xml",
     ],
     "installable": True,

@@ -15,6 +15,7 @@ class RentalOrder(models.Model):
         domain="[('office_id', '=', office_id), ('status', '=', 'available')]"
     )
     customer_name = fields.Char()
+    renter_id = fields.Many2one('rental.renter')
     rental_days = fields.Integer(required=True, default=1)
     rental_hours = fields.Integer()
     start_date = fields.Datetime(required=True, default=fields.Datetime.now)
@@ -25,7 +26,7 @@ class RentalOrder(models.Model):
     start_mileage = fields.Integer()
     end_mileage = fields.Integer()
     currency_id = fields.Many2one(related='tarif_id.currency_id')
-    total_amount = fields.Monetary(currency_field="currency_id", compute="_compute_total_amount", store=True)
+    amount_total = fields.Monetary(currency_field="currency_id", compute="_compute_amount_total", store=True)
     deposit_amount = fields.Float()
 
     state = fields.Selection(
@@ -119,7 +120,7 @@ class RentalOrder(models.Model):
                 rec.end_date = False
         
     @api.depends('rental_days', 'rental_hours', 'tarif_price', 'extra_expenses')
-    def _compute_total_amount(self):
+    def _compute_amount_total(self):
         for rec in self:
             total = 0
 
@@ -137,7 +138,7 @@ class RentalOrder(models.Model):
             if rec.extra_expenses:
                 total += rec.extra_expenses
 
-            rec.total_amount = total
+            rec.amount_total = total
 
     def action_start_rental(self):
         for rec in self:
@@ -161,3 +162,14 @@ class RentalOrder(models.Model):
             if rec.state == "active":
                 rec.vehicle_id.status = "available"
             rec.state = "cancelled"
+
+    def action_open_photo_wizard(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Recognize Renter from Photo",
+            "res_model": "rental.renter.photo.wizard",
+            "view_mode": "form",
+            "target": "new",
+            "context": {"default_order_id": self.id},
+        }

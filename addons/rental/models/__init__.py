@@ -7,3 +7,4 @@ from . import office
 from . import tarif
 from . import service_type
 from . import maintenance_due_view
+from . import renter

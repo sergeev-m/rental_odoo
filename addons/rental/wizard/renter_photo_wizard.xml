@@ -1,0 +1,27 @@
+<odoo>
+
+    <record id="view_renter_photo_wizard" model="ir.ui.view">
+        <field name="name">renter.photo.wizard.form</field>
+        <field name="model">rental.renter.photo.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Extract Renter Data" version="7.0">
+                <group>
+                    <field name="image" filename="image_filename"/>
+                    <field name="image_filename" invisible="1"/>
+                    <button name="action_extract_data" string="Extract Data" type="object" class="oe_highlight"/>
+                </group>
+                <group>
+                    <field name="name"/>
+                    <field name="passport_number"/>
+                    <field name="driver_license"/>
+                    <field name="phone"/>
+                    <field name="country"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -11,3 +11,5 @@ access_manufacturer,rental.manufacturer,model_rental_manufacturer,,1,1,1,1
 access_service.type,rental.service.type,model_rental_service_type,,1,1,1,1
 access_service.maintenance.cost.line,rental.maintenance.cost.line,model_rental_maintenance_cost_line,,1,1,1,1
 access_maintenance.due,rental.maintenance.due,model_rental_maintenance_due,,1,1,1,1
+access_renter,rental.renter,model_rental_renter,,1,1,1,1
+access_renter.photo.wizard,rental.renter.photo.wizard,model_rental_renter_photo_wizard,,1,1,1,1

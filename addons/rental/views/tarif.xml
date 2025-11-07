@@ -23,12 +23,12 @@
         <field name="model">rental.tarif</field>
         <field name="arch" type="xml">
             <list>
-                <field name="office_id"/>
+                <field name="office_id" optional="hide"/>
                 <field name="vehicle_model_id"/>
                 <field name="period_type"/>
                 <field name="min_period"/>
                 <field name="price_per_unit"/>
-                <field name="currency_id"/>
+                <field name="currency_id" optional="hide"/>
             </list>
         </field>
     </record>

@@ -34,6 +34,7 @@ class VehicleModel(models.Model):
         string='Image',
         attachment=True,
     )
+    tarif_ids = fields.Many2one('rental.tarif')
 
     def _compute_display_name(self):
         for rec in self:
@@ -60,6 +61,18 @@ class VehicleModel(models.Model):
                 raise ValidationError(
                     f'The vehicle model "{rec.name}" already exists for this manufacturer.'
                 )
+
+    def action_view_tarifs(self):
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Tarifs",
+            "res_model": self['tarif_ids']._name,  # noqa
+            "view_mode": "list,form",
+            "domain": [("vehicle_model_id", "=", self.id)],
+            "context": {
+                'default_vehicle_model_id': self.id,
+            },
+        }
 
 
 class VehicleModelMaintenance(models.Model):

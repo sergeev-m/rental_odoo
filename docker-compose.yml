@@ -15,6 +15,12 @@ x-odoo-common: &odoo-common
         max-size: "10m"
         max-file: "5"
 
+
+networks:
+  rental-net:
+    external: true
+
+
 volumes:
   rent-moto-odoo-web-data:
   rent-moto-odoo-db-data:
@@ -31,12 +37,16 @@ services:
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
+    networks:
+      - rental-net
 
   rent_moto_odoo:
     <<: *odoo-common
     container_name: rent_moto_odoo
     command: [ "/usr/local/bin/wait-for-postgres.sh" ]
     expose:
-      - 8096
+      - 8069
     ports:
       - "8069:8069"
+    networks:
+      - rental-net

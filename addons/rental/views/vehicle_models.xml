@@ -5,6 +5,14 @@
         <field name="arch" type="xml">
             <form string="Vehicle model">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_tarifs"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-list">
+                          <field string="Tarifs" name="tarif_ids" widget="statinfo"/>
+                        </button>
+                    </div>
                     <group>
                         <field name="name"/>
                         <field name="manufacturer_id" options="{'no_create': 1}"/>
@@ -42,12 +50,12 @@
                 <field name="name"/>
                 <field name="manufacturer_id"/>
                 <field name="vehicle_type_id"/>
-                <field name="displacement"/>
-                <field name="max_power"/>
-                <field name="top_speed"/>
-                <field name="transmission"/>
-                <field name="transmission_type"/>
-                <field name="weight"/>
+                <field name="displacement" optional="hide"/>
+                <field name="max_power" optional="hide"/>
+                <field name="top_speed" optional="hide"/>
+                <field name="transmission" optional="hide"/>
+                <field name="transmission_type" optional="hide"/>
+                <field name="weight" optional="hide"/>
             </list>
         </field>
     </record>
