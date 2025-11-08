@@ -2,18 +2,18 @@ from odoo import models, fields, api
 
 
 class Vehicle(models.Model):
-    _name = "rental.vehicle"
+    _name = "rental_vehicles.vehicle"
     _description = "Vehicle"
     _order="id desc"
 
     name = fields.Char(compute='_compute_name', store="True")
     sequence = fields.Integer(string="Sequence")
-    model_id = fields.Many2one("rental.vehicle.model", string="Model", required=True)
+    model_id = fields.Many2one("rental_vehicles.vehicle.model", string="Model", required=True)
     plate_number = fields.Char(required=True)
     year = fields.Char()
     purchase_price = fields.Integer()
     mileage = fields.Integer(string="Current Mileage", default=0)
-    office_id = fields.Many2one("rental.office", string="Office", required=True)
+    office_id = fields.Many2one("rental_vehicles.office", string="Office", required=True)
     vehicle_type_id = fields.Many2one(related='model_id.vehicle_type_id')
     status = fields.Selection([
         ("available", "Available"),
@@ -24,13 +24,13 @@ class Vehicle(models.Model):
     ], default="available")
 
     maintenance_due_ids = fields.One2many(
-        "rental.maintenance.due",
+        "rental_vehicles.maintenance.due",
         "vehicle_id",
         string="Upcoming Maintenance",
         readonly=True
     )
-    maintenance_ids = fields.One2many("rental.maintenance", "vehicle_id", string="Maintenance")
-    order_ids = fields.One2many("rental.order", "vehicle_id", string="Заказы")
+    maintenance_ids = fields.One2many("rental_vehicles.maintenance", "vehicle_id", string="Maintenance")
+    order_ids = fields.One2many("rental_vehicles.order", "vehicle_id", string="Заказы")
 
     @api.depends('model_id.manufacturer_id.name', 'model_id.name', 'plate_number')
     def _compute_name(self):

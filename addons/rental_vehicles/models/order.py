@@ -4,17 +4,17 @@ from odoo.exceptions import ValidationError
 
 
 class RentalOrder(models.Model):
-    _name = "rental.order"
+    _name = "rental_vehicles.order"
     _description = "Rental Order"
     _order = "start_date desc"
 
-    office_id = fields.Many2one('rental.office')
+    office_id = fields.Many2one('rental_vehicles.office')
     vehicle_id = fields.Many2one(
-        "rental.vehicle",
+        "rental_vehicles.vehicle",
         required=True,
         domain="[('office_id', '=', office_id), ('status', '=', 'available')]"
     )
-    renter_id = fields.Many2one('rental.renter')
+    renter_id = fields.Many2one('rental_vehicles.renter')
     rental_days = fields.Integer(required=True, default=1)
     rental_hours = fields.Integer()
     start_date = fields.Datetime(required=True, default=fields.Datetime.now)
@@ -46,7 +46,7 @@ class RentalOrder(models.Model):
         readonly=True,
     )
     tariff_id = fields.Many2one(
-        "rental.tariff",
+        "rental_vehicles.tariff",
         string="Tariff",
         required=True,
         domain="[('office_id', '=', office_id), ('vehicle_model_id', '=', vehicle_model_id)]",
@@ -80,7 +80,7 @@ class RentalOrder(models.Model):
             return
 
         self.tariff_id = False
-        tariff = self.env['rental.tariff'].search([
+        tariff = self.env['rental_vehicles.tariff'].search([
             ('vehicle_model_id', '=', self.vehicle_model_id.id),
             ('period_type', '=', 'hour'),
         ], limit=1)
@@ -94,7 +94,7 @@ class RentalOrder(models.Model):
         if not (self.vehicle_id and self.rental_days):
             return
 
-        tariff = self.env['rental.tariff'].search([
+        tariff = self.env['rental_vehicles.tariff'].search([
             ('vehicle_model_id', '=', self.vehicle_model_id.id),
             ('period_type', '=', 'day'),
             ('min_period', '<=', self.rental_days),
@@ -125,7 +125,7 @@ class RentalOrder(models.Model):
                 total = rec.rental_days * rec.tariff_price
 
             if rec.rental_hours:
-                tariff_hour = rec.env['rental.tariff'].search([
+                tariff_hour = rec.env['rental_vehicles.tariff'].search([
                     ('vehicle_model_id', '=', rec.vehicle_id.model_id.id),
                     ('period_type', '=', 'hour'),
                 ], limit=1)
@@ -165,7 +165,7 @@ class RentalOrder(models.Model):
         return {
             "type": "ir.actions.act_window",
             "name": "Recognize Renter from Photo",
-            "res_model": "rental.renter.photo.wizard",
+            "res_model": "rental_vehicles.renter.photo.wizard",
             "view_mode": "form",
             "target": "new",
             "context": {"default_order_id": self.id},

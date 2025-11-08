@@ -5,22 +5,22 @@
               sequence="10"/>
 
     <!-- Main sections -->
-    <menuitem id="menu_rental_vehicles"
+    <menuitem id="menu_rental_vehicles_vehicles"
               name="Vehicles"
               parent="menu_rental_vehicles_root"
-              action="rental.vehicle_window"
+              action="rental_vehicles.vehicle_window"
               sequence="10"/>
 
-    <menuitem id="menu_rental_orders"
+    <menuitem id="menu_rental_vehicles_orders"
               name="Orders"
               parent="menu_rental_vehicles_root"
-              action="rental.order_window"
+              action="rental_vehicles.order_window"
               sequence="20"/>
 
-    <menuitem id="menu_maintenance_due"
+    <menuitem id="menu_rental_vehicles_maintenance_due"
               name="Maintenance Due"
               parent="menu_rental_vehicles_root"
-              action="rental.maintenance_due_window"
+              action="rental_vehicles.maintenance_due_window"
               sequence="30"/>
 
     <!-- Submenu: References -->
@@ -36,51 +36,51 @@
               parent="menu_rental_vehicles_reference_root"
               sequence="10"/>
 
-    <menuitem id="menu_rental_maintenance"
+    <menuitem id="menu_rental_vehicles_maintenance"
               name="Maintenance"
               parent="menu_rental_vehicles_reference_maintenance_root"
-              action="rental_maintenance_window"
+              action="rental_vehicles.maintenance_window"
               sequence="10"/>
 
-    <menuitem id="menu_rental_maintenance_plan"
+    <menuitem id="menu_rental_vehicles_maintenance_plan"
               name="Maintenance Plans"
               parent="menu_rental_vehicles_reference_maintenance_root"
-              action="rental_maintenance_plan_window"
+              action="rental_vehicles.maintenance_plan_window"
               sequence="20"/>
 
-    <menuitem id="menu_rental_tariff"
+    <menuitem id="menu_rental_vehicles_tariff"
               name="Tariffs"
               parent="menu_rental_vehicles_reference_root"
-              action="rental_tariff_window"
+              action="rental_vehicles.tariff_window"
               sequence="10"/>
 
-    <menuitem id="menu_rental_office"
+    <menuitem id="menu_rental_vehicles_office"
               name="Offices"
               parent="menu_rental_vehicles_reference_root"
-              action="rental.office_window"
+              action="rental_vehicles.office_window"
               sequence="20"/>
 
-    <menuitem id="menu_vehicle_model"
+    <menuitem id="menu_rental_vehicles_vehicle_model"
               name="Vehicle Models"
               parent="menu_rental_vehicles_reference_root"
-              action="rental.vehicle_model_window"
+              action="rental_vehicles.vehicle_model_window"
               sequence="30"/>
 
-    <menuitem id="menu_vehicle_type"
+    <menuitem id="menu_rental_vehicles_vehicle_type"
               name="Vehicle Types"
               parent="menu_rental_vehicles_reference_root"
-              action="rental.vehicle_type_window"
+              action="rental_vehicles.vehicle_type_window"
               sequence="40"/>
 
-    <menuitem id="menu_manufacturer"
+    <menuitem id="menu_rental_vehicles_manufacturer"
               name="Manufacturers"
               parent="menu_rental_vehicles_reference_root"
-              action="rental.manufacturer_window"
+              action="rental_vehicles.manufacturer_window"
               sequence="50"/>
 
-    <menuitem id="menu_service_type"
+    <menuitem id="menu_rental_vehicles_service_type"
               name="Service Types"
               parent="menu_rental_vehicles_reference_root"
-              action="rental.service_type_window"
+              action="rental_vehicles.service_type_window"
               sequence="60"/>
 </odoo>

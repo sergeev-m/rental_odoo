@@ -2,7 +2,7 @@ from odoo import models, fields, api
 
 
 class RentalOffice(models.Model):
-    _name = "rental.office"
+    _name = "rental_vehicles.office"
     _description = "Rental Office"
 
     name = fields.Char(compute="_compute_name")
@@ -18,7 +18,7 @@ class RentalOffice(models.Model):
         required=True
     )
     vehicle_ids = fields.One2many(
-        'rental.vehicle',
+        'rental_vehicles.vehicle',
         'office_id',
         string='Vehicles',
     )
@@ -42,11 +42,3 @@ class RentalOffice(models.Model):
             office.currency_id.active = True
         
         return office
-
-
-    # def write(self, values):
-    #     res = super().write(values)
-    #     if values.get('role_ids'):
-    #         self.onchange_role_ids()
-    #     return res
-

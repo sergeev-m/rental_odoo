@@ -3,7 +3,7 @@ from odoo.exceptions import ValidationError
 
 
 class VehicleType(models.Model):
-    _name = "rental.vehicle.type"
+    _name = "rental_vehicles.vehicle.type"
     _description = "Vehicle Type"
 
     name = fields.Char(string="Type Name", required=True)

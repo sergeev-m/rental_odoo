@@ -2,7 +2,7 @@ from odoo import models, fields, api
 
 
 class Tarif(models.Model):
-    _name = "rental.tariff"
+    _name = "rental_vehicles.tariff"
     _description = "Tariff"
     _order = "vehicle_model_id, period_type, min_period asc"
     _sql_constraints = [
@@ -16,12 +16,12 @@ class Tarif(models.Model):
     name = fields.Char(compute='_compute_name')
     active = fields.Boolean(default=True)
     office_id = fields.Many2one(
-        "rental.office",
+        "rental_vehicles.office",
         string="Office",
         required=True
     )
     vehicle_model_id = fields.Many2one(
-        "rental.vehicle.model",
+        "rental_vehicles.vehicle.model",
         string="Vehicle Model",
         required=True,
     )

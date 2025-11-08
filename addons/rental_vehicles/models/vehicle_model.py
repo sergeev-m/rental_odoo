@@ -3,7 +3,7 @@ from odoo.exceptions import ValidationError
 
 
 class VehicleModel(models.Model):
-    _name = "rental.vehicle.model"
+    _name = "rental_vehicles.vehicle.model"
     _description = "Vehicle Model"
 
     _sql_constraints = [
@@ -15,9 +15,9 @@ class VehicleModel(models.Model):
     ]
 
     name = fields.Char(required=True)
-    manufacturer_id = fields.Many2one('rental.manufacturer', required=True)
-    vehicle_type_id = fields.Many2one("rental.vehicle.type", string="Vehicle Type", required=True)
-    maintenance_plan_ids = fields.One2many("rental.maintenance.plan", "model_id", string="Maintenance Plan")
+    manufacturer_id = fields.Many2one('rental_vehicles.manufacturer', required=True)
+    vehicle_type_id = fields.Many2one("rental_vehicles.vehicle.type", string="Vehicle Type", required=True)
+    maintenance_plan_ids = fields.One2many("rental_vehicles.maintenance.plan", "model_id", string="Maintenance Plan")
 
     displacement = fields.Float()
     max_power = fields.Float()
@@ -34,7 +34,7 @@ class VehicleModel(models.Model):
         string='Image',
         attachment=True,
     )
-    tariff_ids = fields.Many2one('rental.tariff')
+    tariff_ids = fields.Many2one('rental_vehicles.tariff')
 
     def _compute_display_name(self):
         for rec in self:
@@ -76,7 +76,7 @@ class VehicleModel(models.Model):
 
 
 class Manufacturer(models.Model):
-    _name = "rental.manufacturer"
+    _name = "rental_vehicles.manufacturer"
     _description = "Manufacturer"
 
     name = fields.Char(

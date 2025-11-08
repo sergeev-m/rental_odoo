@@ -8,18 +8,18 @@ _logger = logging.Logger(__name__)
 
 
 class RenterPhotoWizard(models.TransientModel):
-    _name = "rental.renter.photo.wizard"
+    _name = "rental_vehicles.renter.photo.wizard"
     _description = "Renter Photo Upload Wizard"
 
     image = fields.Binary("Image", required=True)
     image_filename = fields.Char()
-    renter_id = fields.Many2one("rental.renter", string="Detected Renter", readonly=True)
+    renter_id = fields.Many2one("rental_vehicles.renter", string="Detected Renter", readonly=True)
     name = fields.Char("Name")
     passport_number = fields.Char("Passport Number")
     driver_license = fields.Char("Driver License")
     phone = fields.Char("Phone")
     country = fields.Char("Country")
-    order_id = fields.Many2one("rental.order", string="Order")
+    order_id = fields.Many2one("rental_vehicles.order", string="Order")
 
     def action_extract_data(self):
         """Отправляем фото в OCR-сервис"""
@@ -44,7 +44,7 @@ class RenterPhotoWizard(models.TransientModel):
         self.country = data.get("country")
 
         # Ищем существующего арендатора
-        renter = self.env["rental.renter"].search([
+        renter = self.env["rental_vehicles.renter"].search([
             "|",
             ("passport_number", "=", self.passport_number),
             ("driver_license", "=", self.driver_license)
@@ -55,7 +55,7 @@ class RenterPhotoWizard(models.TransientModel):
 
         return {
             "type": "ir.actions.act_window",
-            "res_model": "rental.renter.photo.wizard",
+            "res_model": "rental_vehicles.renter.photo.wizard",
             "view_mode": "form",
             "res_id": self.id,
             "target": "new",
@@ -67,7 +67,7 @@ class RenterPhotoWizard(models.TransientModel):
             raise UserError("Order not found.")
 
         if not self.renter_id:
-            renter = self.env["rental.renter"].create({
+            renter = self.env["rental_vehicles.renter"].create({
                 "name": self.name or "Unknown",
                 "passport_number": self.passport_number,
                 "driver_license": self.driver_license,

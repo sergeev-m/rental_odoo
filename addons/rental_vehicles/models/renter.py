@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError, UserError
 
 
 class Renter(models.Model):
-    _name = 'rental.renter'
+    _name = 'rental_vehicles.renter'
     _description = 'Renter'
 
     name = fields.Char("Full Name", required=True)
@@ -19,7 +19,7 @@ class Renter(models.Model):
     license_image = fields.Binary("Driver License Image")
     image = fields.Binary("Image")
 
-    order_ids = fields.One2many("rental.order", "renter_id", string="Rentals")
+    order_ids = fields.One2many("rental_vehicles.order", "renter_id", string="Rentals")
     total_rentals = fields.Integer("Total Rentals", compute="_compute_total_rentals", store=True)
     total_spent = fields.Monetary("Total Spent", compute="_compute_total_spent", store=True)
     currency_id = fields.Many2one("res.currency", default=lambda self: self.env.company.currency_id)

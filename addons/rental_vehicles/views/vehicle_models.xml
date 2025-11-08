@@ -1,7 +1,7 @@
 <odoo>
-    <record id="rental.vehicle_model_form" model="ir.ui.view">
-        <field name="name">rental.vehicle.model.form</field>
-        <field name="model">rental.vehicle.model</field>
+    <record id="rental_vehicles.vehicle_model_form" model="ir.ui.view">
+        <field name="name">rental_vehicles.vehicle.model.form</field>
+        <field name="model">rental_vehicles.vehicle.model</field>
         <field name="arch" type="xml">
             <form string="Vehicle model">
                 <sheet>
@@ -42,9 +42,9 @@
         </field>
     </record>
 
-    <record id="rental.vehicle_model_list" model="ir.ui.view">
-        <field name="name">rental.vehicle.model.tree</field>
-        <field name="model">rental.vehicle.model</field>
+    <record id="rental_vehicles.vehicle_model_list" model="ir.ui.view">
+        <field name="name">rental_vehicles.vehicle.model.tree</field>
+        <field name="model">rental_vehicles.vehicle.model</field>
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
@@ -60,9 +60,9 @@
         </field>
     </record>
 
-    <record id="rental.vehicle_model_window" model="ir.actions.act_window">
+    <record id="rental_vehicles.vehicle_model_window" model="ir.actions.act_window">
         <field name="name">Vehicle models</field>
-        <field name="res_model">rental.vehicle.model</field>
+        <field name="res_model">rental_vehicles.vehicle.model</field>
         <field name="view_mode">list,form</field>
     </record>
 </odoo>

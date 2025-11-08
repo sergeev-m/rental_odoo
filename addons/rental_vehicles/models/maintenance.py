@@ -3,17 +3,17 @@ from odoo.exceptions import ValidationError
 
 
 class RentalMaintenance(models.Model):
-    _name = "rental.maintenance"
+    _name = "rental_vehicles.maintenance"
     _description = "Maintenance"
     _order = 'id desc'
 
     name = fields.Char(compute='_compute_name')
-    vehicle_id = fields.Many2one("rental.vehicle", string="Vehicle", required=True)
+    vehicle_id = fields.Many2one("rental_vehicles.vehicle", string="Vehicle", required=True)
     date = fields.Date(default=fields.Date.today, index=True)
     mileage = fields.Integer(required=True)
     note = fields.Text("Notes")
 
-    maintenance_line_ids = fields.One2many("rental.maintenance.line", "maintenance_id", string="Maintenance Lines")
+    maintenance_line_ids = fields.One2many("rental_vehicles.maintenance.line", "maintenance_id", string="Maintenance Lines")
     total_cost = fields.Float("Total Cost", compute="_compute_total_cost", store=True)
     currency_id = fields.Many2one(related='vehicle_id.office_id.currency_id')
 
@@ -41,11 +41,11 @@ class RentalMaintenance(models.Model):
 
 
 class RentalMaintenanceLine(models.Model):
-    _name = "rental.maintenance.line"
+    _name = "rental_vehicles.maintenance.line"
     _description = "Maintenance Line"
 
-    maintenance_id = fields.Many2one("rental.maintenance", string="Maintenance", ondelete="cascade")
-    service_type_id = fields.Many2one("rental.service.type", string="Service Type", required=True)
+    maintenance_id = fields.Many2one("rental_vehicles.maintenance", string="Maintenance", ondelete="cascade")
+    service_type_id = fields.Many2one("rental_vehicles.service.type", string="Service Type", required=True)
     cost = fields.Float("Cost")
 
     @api.onchange('service_type_id')

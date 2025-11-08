@@ -2,7 +2,7 @@ from odoo import fields, models
 
 
 class RentalServiceType(models.Model):
-    _name = "rental.service.type"
+    _name = "rental_vehicles.service.type"
     _description = "Service Type"
 
     name = fields.Char("Service Name", required=True)

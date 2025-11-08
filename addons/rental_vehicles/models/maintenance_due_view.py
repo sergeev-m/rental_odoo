@@ -2,15 +2,15 @@ from odoo import models, fields, api, tools
 
 
 class MaintenanceDueView(models.Model):
-    _name = "rental.maintenance.due"
+    _name = "rental_vehicles.maintenance.due"
     _description = "Maintenance Due (SQL View)"
     _auto = False
     _rec_name = "vehicle_id"
 
-    vehicle_id = fields.Many2one("rental.vehicle", readonly=True, index=True)
-    office_id = fields.Many2one("rental.office", readonly=True)
-    model_id = fields.Many2one("rental.vehicle.model", readonly=True)
-    service_type_id = fields.Many2one("rental.service.type", readonly=True)
+    vehicle_id = fields.Many2one("rental_vehicles.vehicle", readonly=True, index=True)
+    office_id = fields.Many2one("rental_vehicles.office", readonly=True)
+    model_id = fields.Many2one("rental_vehicles.vehicle.model", readonly=True)
+    service_type_id = fields.Many2one("rental_vehicles.service.type", readonly=True)
     last_service_date = fields.Date(readonly=True)
     last_service_mileage = fields.Integer(readonly=True)
     next_service_date = fields.Date(readonly=True)
@@ -25,11 +25,11 @@ class MaintenanceDueView(models.Model):
     def action_perform_service(self):
         """Создаём запись в журнале обслуживания, обновляем состояние"""
         self.ensure_one()
-        service_type = self.env['rental.service.type'].search(
+        service_type = self.env['rental_vehicles.service.type'].search(
             [('id', '=', self.service_type_id.id)],
             limit=1
         )
-        maintenance = self.env["rental.maintenance"].create({
+        maintenance = self.env["rental_vehicles.maintenance"].create({
             'vehicle_id': self.vehicle_id.id,
             'mileage': self.current_mileage,
             'note': f'ТО ({self.service_type_id.name})',
@@ -40,16 +40,16 @@ class MaintenanceDueView(models.Model):
         })
         return {
             "type": "ir.actions.act_window",
-            "res_model": "rental.maintenance",
+            "res_model": "rental_vehicles.maintenance",
             "res_id": maintenance.id,
             "view_mode": "form",
             "target": "current",
         }
 
     def init(self):
-        tools.drop_view_if_exists(self.env.cr, "rental_maintenance_due")
+        tools.drop_view_if_exists(self.env.cr, "rental_vehicles_maintenance_due")
         self.env.cr.execute("""
-            CREATE VIEW rental_maintenance_due AS
+            CREATE VIEW rental_vehicles_maintenance_due AS
             WITH
             last_log AS (
                 SELECT DISTINCT ON (l.vehicle_id, cl.service_type_id)
@@ -58,8 +58,8 @@ class MaintenanceDueView(models.Model):
                     l.date        AS service_date,
                     l.mileage     AS mileage,
                     cl.id
-                FROM rental_maintenance_line cl
-                JOIN rental_maintenance l ON l.id = cl.maintenance_id
+                FROM rental_vehicles_maintenance_line cl
+                JOIN rental_vehicles_maintenance l ON l.id = cl.maintenance_id
                 ORDER BY l.vehicle_id, cl.service_type_id, l.date DESC, cl.id DESC
             ),
 
@@ -110,10 +110,10 @@ class MaintenanceDueView(models.Model):
                         ELSE NULL
                     END AS days_to_due
 
-                FROM rental_vehicle v
-                JOIN rental_vehicle_model m ON m.id = v.model_id
-                JOIN rental_maintenance_plan mst ON mst.model_id = m.id
-                JOIN rental_service_type st ON st.id = mst.service_type_id
+                FROM rental_vehicles_vehicle v
+                JOIN rental_vehicles_vehicle_model m ON m.id = v.model_id
+                JOIN rental_vehicles_maintenance_plan mst ON mst.model_id = m.id
+                JOIN rental_vehicles_service_type st ON st.id = mst.service_type_id
                 LEFT JOIN last_log ll
                     ON ll.vehicle_id = v.id
                     AND ll.service_type_id = mst.service_type_id

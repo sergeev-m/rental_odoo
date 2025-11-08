@@ -1,7 +1,7 @@
 <odoo>
-    <record id="rental.service_type_form" model="ir.ui.view">
-        <field name="name">rental.service.type.form</field>
-        <field name="model">rental.service.type</field>
+    <record id="rental_vehicles.service_type_form" model="ir.ui.view">
+        <field name="name">rental_vehicles.service.type.form</field>
+        <field name="model">rental_vehicles.service.type</field>
         <field name="arch" type="xml">
             <form string="Service type">
                 <sheet>
@@ -15,9 +15,9 @@
         </field>
     </record>
 
-    <record id="rental.service_type_list" model="ir.ui.view">
-        <field name="name">rental.service.type.tree</field>
-        <field name="model">rental.service.type</field>
+    <record id="rental_vehicles.service_type_list" model="ir.ui.view">
+        <field name="name">rental_vehicles.service.type.tree</field>
+        <field name="model">rental_vehicles.service.type</field>
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
@@ -26,9 +26,9 @@
         </field>
     </record>
 
-    <record id="rental.service_type_window" model="ir.actions.act_window">
+    <record id="rental_vehicles.service_type_window" model="ir.actions.act_window">
         <field name="name">Service type</field>
-        <field name="res_model">rental.service.type</field>
+        <field name="res_model">rental_vehicles.service.type</field>
         <field name="view_mode">list,form</field>
     </record>
 </odoo>

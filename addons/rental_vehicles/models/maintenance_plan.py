@@ -2,11 +2,11 @@ from odoo import models, fields
 
 
 class MaintenancePlan(models.Model):
-    _name = "rental.maintenance.plan"
+    _name = "rental_vehicles.maintenance.plan"
     _description = "Maintenance Plan"
 
-    model_id = fields.Many2one("rental.vehicle.model", required=True, ondelete='cascade')
-    service_type_id = fields.Many2one("rental.service.type", string="Service Type", required=True)
+    model_id = fields.Many2one("rental_vehicles.vehicle.model", required=True, ondelete='cascade')
+    service_type_id = fields.Many2one("rental_vehicles.service.type", string="Service Type", required=True)
     interval_km = fields.Integer("Interval (km)")
     interval_days = fields.Integer("Interval (days)")
 

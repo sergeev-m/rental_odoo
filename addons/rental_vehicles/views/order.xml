@@ -1,7 +1,7 @@
 <odoo>
-    <record id="rental.order_tree" model="ir.ui.view">
-        <field name="name">rental.order.tree</field>
-        <field name="model">rental.order</field>
+    <record id="rental_vehicles.order_tree" model="ir.ui.view">
+        <field name="name">rental_vehicles.order.tree</field>
+        <field name="model">rental_vehicles.order</field>
         <field name="arch" type="xml">
             <list
                 decoration-danger="state == 'cancelled'"
@@ -25,9 +25,9 @@
         </field>
     </record>
 
-    <record id="rental.order_form" model="ir.ui.view">
-        <field name="name">rental.order.form</field>
-        <field name="model">rental.order</field>
+    <record id="rental_vehicles.order_form" model="ir.ui.view">
+        <field name="name">rental_vehicles.order.form</field>
+        <field name="model">rental_vehicles.order</field>
         <field name="arch" type="xml">
             <form string="Order">
                 <header>
@@ -93,9 +93,9 @@
         </field>
     </record>
 
-    <record id="rental.order_window" model="ir.actions.act_window">
+    <record id="rental_vehicles.order_window" model="ir.actions.act_window">
         <field name="name">Orders</field>
-        <field name="res_model">rental.order</field>
+        <field name="res_model">rental_vehicles.order</field>
         <field name="view_mode">list,form</field>
     </record>
 </odoo>
