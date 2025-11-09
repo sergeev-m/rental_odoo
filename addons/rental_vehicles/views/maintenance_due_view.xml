@@ -50,9 +50,9 @@
                 <field name="last_service_mileage" optional="hide"/>
                 <field name="next_service_date" optional="hide"/>
                 <field name="next_service_mileage" optional="hide"/>
-                <field name="current_mileage"/>
+                <field name="current_mileage" optional="hide"/>
                 <field name="km_to_due"/>
-                <field name="days_to_due"/>
+                <field name="days_to_due" optional="hide"/>
                 <button name="action_perform_service"
                         string="Провести ТО"
                         type="object"
