@@ -13,5 +13,4 @@ access_maintenance.plan,rental_vehicles.maintenance.plan,model_rental_vehicles_m
 access_maintenance.due,rental_vehicles.maintenance.due,model_rental_vehicles_maintenance_due,,1,1,1,1
 access_renter,rental_vehicles.renter,model_rental_vehicles_renter,,1,1,1,1
 access_renter.photo.wizard,rental_vehicles.renter.photo.wizard,model_rental_vehicles_renter_photo_wizard,,1,1,1,1
-access_payout,rental_vehicles.payout,model_rental_vehicles_payout,,1,1,1,1
 access_order_status,rental_vehicles.order.status,model_rental_vehicles_order_status,,1,1,1,1
