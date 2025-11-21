@@ -5,7 +5,7 @@ from odoo.tools import format_date
 class Vehicle(models.Model):
     _name = "rental_vehicles.vehicle"
     _description = "Vehicle"
-    _order="id desc"
+    _order="sequence"
 
     name = fields.Char(compute='_compute_name', store="True")
     sequence = fields.Integer(string="Sequence")
