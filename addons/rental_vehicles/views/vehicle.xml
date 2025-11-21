@@ -139,9 +139,6 @@
                                         <div class="fs-5" style="width: 23%; text-align:right;">
                                                 <t t-esc="item.km_to_due"/>
                                         </div>
-                                        <div>
-                                            <t t-esc="item.next_service_date"/>
-                                        </div>
                                    </div>
                                 </t>
                             </div>
