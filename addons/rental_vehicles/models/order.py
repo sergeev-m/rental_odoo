@@ -1,7 +1,11 @@
-from logging import PlaceHolder
-from odoo import models, fields, api
+from logging import getLogger
+from pprint import pformat
 from datetime import timedelta
+from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+
+
+_logger = getLogger(__name__)
 
 
 class StatusBarOrder(models.Model):
@@ -50,9 +54,9 @@ class StatusBarOrder(models.Model):
         return super(StatusBarOrder, self).write(vals)
 
 
-class RentalOrder(models.Model):
+class RentalVehiclesOrder(models.Model):
     _name = "rental_vehicles.order"
-    _description = "Rental Order"
+    _description = "Rental Vehicles Order"
     _order = "start_date desc"
 
     active = fields.Boolean(default=True)
@@ -139,7 +143,6 @@ class RentalOrder(models.Model):
             ('period_type', '=', 'hour'),
         ], limit=1)
         self.tariff_id = tariff.id if tariff else False
-
 
     @api.onchange('rental_days', 'vehicle_id')
     def _onchange_rental_days(self):
@@ -237,3 +240,56 @@ class RentalOrder(models.Model):
             )
             placeholder = ' '.join(['%s'] * len(values))
             rec.display_name = placeholder % tuple(values) if values else False
+
+    def write(self, vals):
+        old_vehicle_id = self.vehicle_id.id
+        res = super(RentalVehiclesOrder, self).write(vals)
+
+        if old_vehicle_id != self.vehicle_id.id and self.status_code == "active":
+            old_vehicle = self.env[self.vehicle_id._name].browse(old_vehicle_id)
+            old_vehicle.status = 'available'
+            self.vehicle_id.status = 'rented'
+            self._log([f'{v.name}: {v.status}' for v in (old_vehicle, self.vehicle_id)])
+
+        return res
+
+
+    def _log(self, vals, pad: int = 2, title: str | None = None):
+        pretty = pformat(vals, width=120, compact=False)
+        lines = pretty.splitlines() or [""]
+
+        if title:
+            lines = [title] + [""] + lines
+
+        max_len = max(len(line) for line in lines)
+
+        center_top = "◥◣◆◢◤"
+        center_bottom = "◢◤◆◥◣"
+        inner_width = (max_len + pad * 2 - len(center_top)) // 2
+        side = "━" * inner_width
+        total_inner = inner_width * 2 + len(center_top)
+
+        top = f"┏{side}{center_top}{side}┓"
+        bottom = f"┗{side}{center_bottom}{side}┛"
+
+        inside_lines = []
+        for line in lines:
+            raw = " " * pad + line.ljust(max_len) + " " * pad
+            centered = raw.center(total_inner)
+            inside_lines.append(centered)
+
+        inside = "\n".join(inside_lines)
+
+        ascii_cat = [
+            "  ∧,,,∧   ||",
+            " ( • · •) ||",
+            "  / づ    || ",
+            ""
+        ]
+
+        center_pos = len(bottom) // 2 + len(bottom) % 2 + 1
+        ascii_right = "\n".join(s.rjust(center_pos) for s in ascii_cat)
+
+        final = "\n" + top + "\n" + inside + "\n" + bottom + "\n" + ascii_right
+
+        _logger.debug(final)
