@@ -41,6 +41,7 @@
                 <field name="vehicle_id" class="o_col_3"/>
                 <field name="start_date" optional="hide"/>
                 <field name="end_date" optional="hide"/>
+                <field name="progress_html" widget="html" string="Срок аренды"/>
                 <field name="rental_days" optional="hide"/>
                 <field name="rental_hours" optional="hide"/>
                 <field name="start_mileage" optional="hide"/>

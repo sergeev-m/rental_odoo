@@ -3,6 +3,7 @@ from pprint import pformat
 from datetime import timedelta
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from odoo.tools import format_datetime
 
 
 _logger = getLogger(__name__)
@@ -114,6 +115,10 @@ class RentalVehiclesOrder(models.Model):
         currency_field="currency_id",
         # readonly=True
     )
+
+    progress_percent = fields.Integer(compute="_compute_progress", store=False)
+    progress_label = fields.Char(compute="_compute_progress", store=False)
+    progress_html = fields.Html(compute="_compute_progress_html", sanitize=False)
 
     @api.onchange('tariff_id')
     def _onchange_tarif_id(self):
@@ -253,7 +258,6 @@ class RentalVehiclesOrder(models.Model):
 
         return res
 
-
     def _log(self, vals, pad: int = 2, title: str | None = None):
         pretty = pformat(vals, width=120, compact=False)
         lines = pretty.splitlines() or [""]
@@ -293,3 +297,56 @@ class RentalVehiclesOrder(models.Model):
         final = "\n" + top + "\n" + inside + "\n" + bottom + "\n" + ascii_right
 
         _logger.debug(final)
+
+    @api.depends("start_date", "end_date")
+    def _compute_progress(self):
+        now = fields.Datetime.now()
+        for rec in self:
+            if rec.start_date and rec.end_date:
+                total = (rec.end_date - rec.start_date).total_seconds()
+                passed = (now - rec.start_date).total_seconds()
+                rec.progress_percent = int(max(0, min(100, passed / total * 100)))
+            else:
+                rec.progress_percent = 0
+
+            if rec.end_date:
+                rec.progress_label = format_datetime(
+                    rec.env,
+                    rec.end_date,
+                    tz=rec.env.user.tz or "UTC",
+                    lang_code="ru_RU",
+                    dt_format="d MMM HH:mm"
+                )
+            else:
+                rec.progress_label = ""
+
+    @api.depends("progress_percent", "progress_label", 'end_date')
+    def _compute_progress_html(self):
+        now = fields.Datetime.now()
+        for rec in self:
+            color = "#adb5bd"
+
+            if rec.status_id == rec.status_id._active_status:
+                if rec.end_date:
+                    if rec.end_date < now:
+                        color = "#dc3545"  # красный (просрочено)
+                    elif (rec.end_date - now).total_seconds() < 6 * 3600:
+                        color = "#fd7e14"  # оранжевый (скоро заканчивается)
+                    else:
+                        color = "#2f80ed"  # синий (в норме)
+                else:
+                    color = "#2f80ed"
+
+            width = rec.progress_percent
+
+            rec.progress_html = f"""
+            <div style='width:100%; background:#e9ecef; height:14px; border-radius:4px; position:relative;'>
+                <div style='width:{width}%; background:{color}; height:100%; border-radius:4px;'></div>
+
+                <span style='position:absolute; left:50%; top:-2px; 
+                             transform:translateX(-50%);
+                             font-size:11px; color:#333; white-space:nowrap;'>
+                    {rec.progress_label}
+                </span>
+            </div>
+            """
