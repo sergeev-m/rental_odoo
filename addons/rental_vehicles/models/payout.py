@@ -4,6 +4,7 @@ from odoo import models, fields, api
 class Payout(models.Model):
     _name = "rental_vehicles.payout"
     _description = "Rental Vehicles Payout"
+    _order = 'id desc'
 
     name = fields.Char(string="Name", compute="_compute_name", store=True)
     office_id = fields.Many2one("rental_vehicles.office", string="Office", required=True)
@@ -52,7 +53,7 @@ class Payout(models.Model):
                 ("office_id", "=", rec.office_id.id),
                 ("start_date", ">=", rec.date_from),
                 ("start_date", "<=", rec.date_to),
-                ("status_code", "=", "done"),
+                ("status_code", "not in", ["draft", 'cancelled']),
             ])
 
             values = []
