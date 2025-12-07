@@ -2,7 +2,7 @@ FROM odoo:19
 
 USER root
 
-RUN apt-get update; apt-get install -y locales gettext;\
+RUN apt-get update; apt-get install -y locales;\
     mkdir -p /usr/share/man/man1; \
     rm -rf /var/lib/apt/lists/*
 
