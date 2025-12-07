@@ -1,0 +1,6 @@
+services:
+  rental_odoo:
+    ports:
+      - "${ODOO_PORT:-8069}:${ODOO_HTTP_PORT:-8069}"
+    command: ["odoo", "-u", "rental_vehicles", "--dev=xml", "--without-demo=all"]
+    # command: ["odoo", "--db-filter=^$"]
