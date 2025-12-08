@@ -6,13 +6,10 @@ class VehicleModel(models.Model):
     _name = "rental_vehicles.vehicle.model"
     _description = "Vehicle Model"
 
-    _sql_constraints = [
-        (
-            'unique_vehicle_model_name_manufacturer',
-            'UNIQUE (name, manufacturer_id)',
-            'Vehicle model name must be unique per manufacturer!'
-        ),
-    ]
+    _name_manufacturer_id_unique = models.Constraint(
+        'UNIQUE(name,manufacturer_id)',
+        'Vehicle model name must be unique per manufacturer!'
+    )
 
     name = fields.Char(required=True)
     manufacturer_id = fields.Many2one('rental_vehicles.manufacturer', required=True)
@@ -83,9 +80,9 @@ class Manufacturer(models.Model):
         string='Name',
     )
 
-    _sql_constraints = [
-        ('unique_manufacturer_name', 'unique(name)', 'Manufacturer name must be unique!')
-    ]
+    _name_unique = models.Constraint(
+        'UNIQUE(name)', 'Manufacturer name must be unique!'
+    )
 
     @api.constrains('name')
     def _check_unique_name(self):

@@ -8,9 +8,9 @@ class VehicleType(models.Model):
 
     name = fields.Char(string="Type Name", required=True)
 
-    _sql_constraints = [
-        ('unique_vehicle_type_name', 'unique(name)', 'Vehicle type name must be unique!')
-    ]
+    _vehicle_type_name_unique = models.Constraint(
+        'UNIQUE(name)', 'Vehicle type name must be unique!'
+    )
 
     @api.constrains('name')
     def _check_unique_name(self):

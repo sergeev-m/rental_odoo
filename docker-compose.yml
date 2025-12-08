@@ -50,7 +50,7 @@ services:
   rental_odoo:
     <<: *odoo-common
     container_name: rental_odoo
-    command: ["odoo", "-u", "rental_vehicles", "--without-demo=all"]
+    command: ["odoo", "-u", "rental_vehicles", "--without-demo=True"]
     expose:
       - "${ODOO_HTTP_PORT:-8069}"
     networks:

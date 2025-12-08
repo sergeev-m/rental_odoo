@@ -5,13 +5,6 @@ class Tarif(models.Model):
     _name = "rental_vehicles.tariff"
     _description = "Tariff"
     _order = "vehicle_model_id, period_type, min_period asc"
-    _sql_constraints = [
-        (
-            'unique_tariff',
-            'unique(vehicle_model_id, period_type, min_period)',
-            'Tariff already exists for this model and period.'
-        ),
-    ]
 
     name = fields.Char(compute='_compute_name')
     active = fields.Boolean(default=True)
@@ -45,6 +38,11 @@ class Tarif(models.Model):
         "res.currency",
         string="Currency",
         required=True
+    )
+
+    _vehicle_model_id_period_type_min_period_unique = models.Constraint(
+        'UNIQUE(vehicle_model_id,period_type,min_period)',
+        'Tariff already exists for this model and period!'
     )
 
     def _compute_name(self):
