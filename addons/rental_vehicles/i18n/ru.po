@@ -1,0 +1,1115 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* rental_vehicles
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20251121\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-09 00:11+0000\n"
+"PO-Revision-Date: 2025-12-09 00:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__active
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__active
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_service_type__active
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__active
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_search
+msgid "Active"
+msgstr "Активные"
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__amount_total
+msgid "Amount Total"
+msgstr "Стоимость"
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_search
+msgid "Archived"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_vehicle_model__transmission__automatic
+msgid "Automatic"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_vehicle__status__available
+msgid "Available"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_vehicle__status__booked
+msgid "Booked"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_vehicle_model__transmission_type__cvt
+msgid "CVT"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_form
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.renter_photo_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__city
+msgid "City"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order_status__code
+msgid "Code"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__color
+msgid "Color"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.renter_photo_wizard
+msgid "Confirm"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_line__cost
+msgid "Cost"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__country_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__country_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__country
+msgid "Country"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_line__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manufacturer__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order_status__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_service_type__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__create_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_type__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_line__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manufacturer__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order_status__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_service_type__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__create_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_type__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__currency_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__currency_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__currency_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__currency_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__currency_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__currency_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__current_mileage
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__mileage
+msgid "Current Mileage"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_tariff__period_type__day
+msgid "Daily"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_order_status__decoration__danger
+msgid "Danger"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__date
+msgid "Date"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__date_from
+msgid "Date From"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__date_to
+msgid "Date To"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__days_to_due
+msgid "Days To Due"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__status_decoration
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order_status__decoration
+msgid "Decoration"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_service_type__default_cost
+msgid "Default Cost"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__deposit_amount
+msgid "Deposit Amount"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__renter_id
+msgid "Detected Renter"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__displacement
+msgid "Displacement"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_line__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manufacturer__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order_status__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_service_type__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__display_name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_type__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__driver_license
+msgid "Driver License"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__license_image
+msgid "Driver License Image"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__driver_license
+msgid "Driver License Number"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_due_form
+msgid "Due Maintenance"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__end_mileage
+msgid "End Mileage"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_form
+msgid "End Rental"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__currency_rate_snapshot
+msgid "Exchange Rate Snapshot (USD → Office Currency)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__extra_expenses
+msgid "Extra Expenses"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.renter_photo_wizard
+msgid "Extract Data"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.renter_photo_wizard
+msgid "Extract Renter Data"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__salary_fixed_converted
+msgid "Fixed Salary (Office Currency)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__salary_fixed_usd
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__salary_fixed_usd
+msgid "Fixed Salary (USD)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,help:rental_vehicles.field_rental_vehicles_manager_payout__salary_fixed_converted
+msgid "Fixed salary converted from USD to the office currency."
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__name
+msgid "Full Name"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_tariff__period_type__hour
+msgid "Hourly"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_line__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manufacturer__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order_status__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_service_type__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_type__id
+msgid "ID"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__image
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__image
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__image
+msgid "Image"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__image_filename
+msgid "Image Filename"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_vehicle__status__inactive
+msgid "Inactive"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_order_status__decoration__info
+msgid "Info"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__interval_days
+msgid "Interval (days)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__interval_km
+msgid "Interval (km)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__is_due
+msgid "Is Due"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__km_to_due
+msgid "Km To Due"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__last_service_date
+msgid "Last Service Date"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__last_service_mileage
+msgid "Last Service Mileage"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_line__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manufacturer__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order_status__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_service_type__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__write_uid
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_type__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_line__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manufacturer__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order_status__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_service_type__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__write_date
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_type__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.maintenance_window
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_maintenance
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_line__maintenance_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__maintenance_ids
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_vehicle__status__maintenance
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_maintenance
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_reference_maintenance_root
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_form
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.vehicle_form
+msgid "Maintenance"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_maintenance_due
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_due_search
+msgid "Maintenance Due"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_maintenance_due
+msgid "Maintenance Due (SQL View)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_maintenance_line
+msgid "Maintenance Line"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__maintenance_line_ids
+msgid "Maintenance Lines"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_maintenance_plan
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__maintenance_plan_ids
+msgid "Maintenance Plan"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.maintenance_plan_window
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_maintenance_plan
+msgid "Maintenance Plans"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_plan_form
+msgid "Maintenance plan"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.vehicle_model_form
+msgid "Maintenance plans"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__manager_id
+msgid "Manager"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__manager_payout_ids
+msgid "Manager Payout"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_manager_payout
+msgid "Manager Payout for Period"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_vehicle_model__transmission__manual
+msgid "Manual"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.manufacturer_window
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_manufacturer
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__manufacturer_id
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.manufacturer_form
+msgid "Manufacturer"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.constraint,message:rental_vehicles.constraint_rental_vehicles_manufacturer_name_unique
+msgid "Manufacturer name must be unique!"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_manufacturer
+msgid "Manufacturers"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__max_power
+msgid "Max Power"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__mileage
+msgid "Mileage"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__min_period
+msgid "Min period"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,help:rental_vehicles.field_rental_vehicles_tariff__min_period
+msgid "Minimum number of units for this tariff (hours, days, or weeks)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__model_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__model_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__vehicle_model_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__model_id
+msgid "Model"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manufacturer__name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__name
+msgid "Name"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__next_service_date
+msgid "Next Service Date"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__next_service_mileage
+msgid "Next Service Mileage"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__note
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__note
+msgid "Notes"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__office_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__office_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__office_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__office_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__office_id
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_search
+msgid "Office"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.office_window
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_office
+msgid "Offices"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__order_id
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_form
+msgid "Order"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.ui.menu,name:rental_vehicles.order_status_menu
+msgid "Order Status"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.order_window
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__order_ids
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__order_ids
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_orders
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_graph
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_search
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.payout_form
+msgid "Orders"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__overdue
+msgid "Overdue"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__passport_image
+msgid "Passport Image"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__passport_number
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__passport_number
+msgid "Passport Number"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__payout_id
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.payout_form
+msgid "Payout"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_payout
+msgid "Payouts"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__percent_part
+msgid "Percent Part"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__salary_percent
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__salary_percent
+msgid "Percent from Revenue (%)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__period_type
+msgid "Period Type"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter_photo_wizard__phone
+msgid "Phone"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__phone
+msgid "Phone Number"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__plate_number
+msgid "Plate Number"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__price_per_unit
+msgid "Price per Unit"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_list
+msgid "Progress"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__progress_html
+msgid "Progress Html"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__progress_label
+msgid "Progress Label"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__progress_percent
+msgid "Progress Percent"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__purchase_price
+msgid "Purchase Price"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_form
+msgid "Recognize Renter from Photo"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_reference_root
+msgid "References"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__remind_before_days
+msgid "Remind Before (days)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__remind_before_km
+msgid "Remind Before (km)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__rental_days
+msgid "Rental Days"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__rental_hours
+msgid "Rental Hours"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_office
+msgid "Rental Office"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_root
+msgid "Rental Vehicles"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_order
+msgid "Rental Vehicles Order"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_payout
+msgid "Rental Vehicles Payout"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.office_form
+msgid "Rental office"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__order_ids
+msgid "Rentals"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_vehicle__status__rented
+msgid "Rented"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_renter
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__renter_id
+msgid "Renter"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_renter_photo_wizard
+msgid "Renter Photo Upload Wizard"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__revenue
+msgid "Revenue"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.order_status_action
+msgid "School Status"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order_status__sequence
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_service_type__name
+msgid "Service Name"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_service_type
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__service_type_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_line__service_type_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_plan__service_type_id
+msgid "Service Type"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_service_type
+msgid "Service Types"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.service_type_window
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.service_type_form
+msgid "Service type"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__start_date
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_search
+msgid "Start Date"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__start_mileage
+msgid "Start Mileage"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_form
+msgid "Start Rental"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__status_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order_status__name
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__status
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_search
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_status_list
+msgid "Status"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__status_code
+msgid "Status Code"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_order_status__decoration__success
+msgid "Success"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_tariff
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__tariff_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__tariff_ids
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.tariff_form
+msgid "Tariff"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__tariff_price
+msgid "Tariff Price"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.constraint,message:rental_vehicles.constraint_rental_vehicles_tariff_vehicle_model_id_period_type_mi_c0fd4c25
+msgid "Tariff already exists for this model and period!"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.tariff_window
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_tariff
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.vehicle_model_form
+msgid "Tariffs"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_order_status
+msgid "This is status of order."
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__top_speed
+msgid "Top Speed"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_form
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_list
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.payout_form
+msgid "Total"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_manager_payout__total_payout
+msgid "Total (Office Currency)"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__total_cost
+msgid "Total Cost"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_payout__total_payout
+msgid "Total Payout"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__total_rentals
+msgid "Total Rentals"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.payout_list
+msgid "Total Salary"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_renter__total_spent
+msgid "Total Spent"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__transmission
+msgid "Transmission"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__transmission_type
+msgid "Transmission Type"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_type__name
+msgid "Type Name"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_form
+msgid "Types of services"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__maintenance_due_ids
+msgid "Upcoming Maintenance"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__maintenance_due_summary
+msgid "Upcoming Maintenance Summary"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_search
+msgid "Valid"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.vehicle_window
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_vehicle
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance__vehicle_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_maintenance_due__vehicle_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__vehicle_id
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_due_search
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.vehicle_form
+msgid "Vehicle"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_vehicle_model
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_tariff__vehicle_model_id
+msgid "Vehicle Model"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_vehicle_model
+msgid "Vehicle Models"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model,name:rental_vehicles.model_rental_vehicles_vehicle_type
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_order__vehicle_type_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__vehicle_type_id
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__vehicle_type_id
+msgid "Vehicle Type"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_vehicle_type
+msgid "Vehicle Types"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.vehicle_model_form
+msgid "Vehicle model"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.constraint,message:rental_vehicles.constraint_rental_vehicles_vehicle_model_name_manufacturer_id_unique
+msgid "Vehicle model name must be unique per manufacturer!"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.vehicle_model_window
+msgid "Vehicle models"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.vehicle_type_window
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.vehicle_type_form
+msgid "Vehicle type"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.constraint,message:rental_vehicles.constraint_rental_vehicles_vehicle_type_vehicle_type_name_unique
+msgid "Vehicle type name must be unique!"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_office__vehicle_ids
+#: model:ir.ui.menu,name:rental_vehicles.menu_rental_vehicles_vehicles
+msgid "Vehicles"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields.selection,name:rental_vehicles.selection__rental_vehicles_order_status__decoration__warning
+msgid "Warning"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle_model__weight
+msgid "Weight"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__year
+msgid "Year"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_list
+msgid "amount total"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.order_status_list
+msgid "e.g 'draft', 'active', 'done', 'cancelled"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_due_search
+msgid "is_due=True,overdue=True"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.maintenance_due_window
+msgid "maintenance due"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.view_vehicle_maintenance_kanban
+msgid "next TS"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.view_vehicle_maintenance_kanban
+msgid "remaining"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,help:rental_vehicles.field_rental_vehicles_maintenance_plan__remind_before_days
+msgid "За сколько дней до наступления интервала подсвечивать"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,help:rental_vehicles.field_rental_vehicles_maintenance_plan__remind_before_km
+msgid "За сколько км до наступления интервала подсвечивать"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.model.fields,field_description:rental_vehicles.field_rental_vehicles_vehicle__order_ids
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.payout_form
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.vehicle_form
+msgid "Заказы"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.view_vehicle_maintenance_kanban
+msgid "Нет предстоящих ТО"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_due_form
+msgid "Параметры"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_due_form
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_due_list
+msgid "Провести ТО"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.payout_form
+msgid "Рассчитать"
+msgstr ""
+
+#. module: rental_vehicles
+#: model:ir.actions.act_window,name:rental_vehicles.payout_window
+msgid "Расчёты по офисам"
+msgstr ""
+
+#. module: rental_vehicles
+#: model_terms:ir.ui.view,arch_db:rental_vehicles.maintenance_due_search
+msgid "Требует ТО"
+msgstr ""
