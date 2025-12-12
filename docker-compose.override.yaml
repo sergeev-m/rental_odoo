@@ -7,3 +7,7 @@ services:
 
     labels:
       - "traefik.http.routers.rental-odoo.rule=Host(`rental.docker.localhost`)"
+
+  rental_odoo_db:
+    ports:
+      - "5432:5432"
