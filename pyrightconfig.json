@@ -1,0 +1,15 @@
+{
+  "include": ["**/*.py"],
+  "exclude": [
+    "**/__pycache__",
+    "**/.git"
+  ],
+  "typeCheckingMode": "basic",
+  "venvPath": ".",
+  "venv": ".venv",
+  "extraPaths": [
+    "./odoo",
+    // "./addons",
+    // "./custom_addons"
+  ]
+}
