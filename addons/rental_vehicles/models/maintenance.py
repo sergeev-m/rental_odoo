@@ -20,8 +20,13 @@ class RentalMaintenance(models.Model):
     @api.depends('maintenance_line_ids')
     def _compute_name(self):
         for rec in self:
-            cost_list = rec.maintenance_line_ids.mapped('service_type_id.name')
-            rec.name = '/'.join(cost_list)
+            names = [
+                name
+                for name in rec.maintenance_line_ids.mapped('service_type_id.name')
+                if isinstance(name, str)
+            ]
+
+            rec.name = '/'.join(names)
 
     @api.depends("maintenance_line_ids.cost")
     def _compute_total_cost(self):

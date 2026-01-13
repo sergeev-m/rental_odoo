@@ -4,12 +4,13 @@
     "**/__pycache__",
     "**/.git"
   ],
-  "typeCheckingMode": "basic",
+  // "typeCheckingMode": "basic",
+  "typeCheckingMode": "off",
+  "reportMissingImports": false,
+  "reportMissingModuleSource": false,
   "venvPath": ".",
   "venv": ".venv",
   "extraPaths": [
     "./odoo",
-    // "./addons",
-    // "./custom_addons"
   ]
 }
