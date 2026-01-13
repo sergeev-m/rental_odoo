@@ -41,6 +41,9 @@ stop:
 run:
 	docker compose up -d
 
+run-prod:
+	docker compose -f docker-compose.yml up -d
+
 rebuild:
 	docker compose down
 	docker compose up -d --build
