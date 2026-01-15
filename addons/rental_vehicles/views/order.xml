@@ -117,9 +117,23 @@
                             <field name="end_date"/>
                             <field name="start_mileage"/>
                             <field name="end_mileage"/>
-                            
                         </group>
                     </group>
+                    <separator string="Order lines"/>
+                    <field name="order_line_ids" nolabel="1">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="price"/>
+                            <field name="total" sum="Total"/>
+                            <field name="tariff_id" optional="hide"/>
+                            <field name="currency_id" optional="hide"/>
+                            <field name="affects_salary" optional="hide"/>
+                            <field name="sequence" optional="hide"/>
+                        </list>
+                    </field>
                 </sheet>
             </form>
         </field>

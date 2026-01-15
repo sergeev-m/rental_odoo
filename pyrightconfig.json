@@ -9,7 +9,7 @@
   "reportMissingImports": false,
   "reportMissingModuleSource": false,
   "venvPath": ".",
-  "venv": ".venv",
+  "venv": "venv",
   "extraPaths": [
     "./odoo",
   ]

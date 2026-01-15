@@ -16,3 +16,5 @@ access_renter.photo.wizard,rental_vehicles.renter.photo.wizard,model_rental_vehi
 access_order_status,rental_vehicles.order.status,model_rental_vehicles_order_status,,1,1,1,1
 access_payout,rental_vehicles.payout,model_rental_vehicles_payout,,1,1,1,1
 access_manager_payout,rental_vehicles.manager.payout,model_rental_vehicles_manager_payout,,1,1,1,1
+access_rental_vehicles_accessory,rental_vehicle_accessory,model_rental_vehicles_accessory,base.group_user,1,1,1,1
+access_rental_vehicles_order_line,rental_vehicles.order.line,model_rental_vehicles_order_line,base.group_user,1,1,1,1

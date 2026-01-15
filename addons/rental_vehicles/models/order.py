@@ -1,12 +1,29 @@
 from logging import getLogger
 from pprint import pformat
 from datetime import timedelta
+from typing import Literal
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 from odoo.tools import format_datetime
 
 
 _logger = getLogger(__name__)
+
+
+ORDER_LINE_TYPE_SELECTION = [
+    ("tariff", "Tariff"),
+    ("addon", "Add-on / Accessory"),
+    ("penalty", "Penalty"),
+    ("sale", "Sale"),
+    ("discount", "Discount / Refund"),
+]
+ORDER_LINE_SEQUENCE = {
+    "tariff": 10,
+    "addon": 20,
+    "sale": 30,
+    "discount": 40,
+    "penalty": 50,
+}
 
 
 class StatusBarOrder(models.Model):
@@ -113,21 +130,69 @@ class RentalVehiclesOrder(models.Model):
     tariff_price = fields.Monetary(
         string="Tariff Price",
         currency_field="currency_id",
-        # readonly=True
     )
 
     progress_percent = fields.Integer(compute="_compute_progress", store=False)
     progress_label = fields.Char(compute="_compute_progress", store=False)
     progress_html = fields.Html(compute="_compute_progress_html", sanitize=False)
 
+    order_line_ids = fields.One2many(
+        "rental_vehicles.order.line",
+        "order_id",
+        string="Order Lines",
+    )
+
     @api.onchange('tariff_id')
     def _onchange_tarif_id(self):
-        if self.status_code =='done':
+        self.ensure_one()
+
+        if self.status_code =='done' or not self.tariff_id:
             return
 
-        if self.tariff_id:
-            self.tariff_price = self.tariff_id.price_per_unit
+        self.tariff_price = self.tariff_id.price_per_unit
+        
+    def _create_update_tarif_lines(self, period_type: Literal['hour', 'day']):
+        self.ensure_one()
 
+        if not self.vehicle_id:
+            return
+
+        f_name = f'rental_{period_type}s'
+        tarif_filter = (
+            lambda r: r.type == "tariff"
+            and r.tariff_id.period_type == period_type
+        )
+        tarif_line = self.order_line_ids.filtered(tarif_filter)
+
+        if self[f_name] == 0:
+            self.order_line_ids = self.order_line_ids - tarif_line
+            return
+
+        tariff = self.env['rental_vehicles.tariff'].search([
+            ('vehicle_model_id', '=', self.vehicle_model_id.id),
+            ('period_type', '=', period_type),
+            ('min_period', '<=', self[f_name]),
+        ], order='min_period desc', limit=1)
+        
+        if not tariff:
+            return
+
+        values = {
+            'tariff_id': tariff.id,
+            "name": tariff.name,
+            "price": tariff.price_per_unit,
+            "quantity": self[f_name],
+        }
+
+        if tarif_line:
+            tarif_line.update(values)
+        else:
+            self.order_line_ids.new({
+                **values,
+                "order_id": self.id,
+                "type": "tariff",
+            })
+        
     @api.onchange('vehicle_id')
     def _onchange_vehicle_id(self):
         self.start_mileage = False
@@ -136,6 +201,7 @@ class RentalVehiclesOrder(models.Model):
     
     @api.onchange('rental_hours')
     def _onchange_rental_hours(self):
+        self._create_update_tarif_lines('hour')
         if self.rental_days:
             return
 
@@ -148,13 +214,16 @@ class RentalVehiclesOrder(models.Model):
             ('period_type', '=', 'hour'),
         ], limit=1)
         self.tariff_id = tariff.id if tariff else False
+        
 
     @api.onchange('rental_days', 'vehicle_id')
     def _onchange_rental_days(self):
         self.tariff_id = False
 
-        if not (self.vehicle_id and self.rental_days):
+        if not self.vehicle_id:
             return
+
+        self._create_update_tarif_lines('day')
 
         tariff = self.env['rental_vehicles.tariff'].search([
             ('vehicle_model_id', '=', self.vehicle_model_id.id),
@@ -258,7 +327,7 @@ class RentalVehiclesOrder(models.Model):
 
         return res
 
-    def _log(self, vals, pad: int = 2, title: str | None = None):
+    def _log(self, vals, *, level='debug', pad: int = 2, title: str | None = None):
         pretty = pformat(vals, width=120, compact=False)
         lines = pretty.splitlines() or [""]
 
@@ -296,7 +365,8 @@ class RentalVehiclesOrder(models.Model):
 
         final = "\n" + top + "\n" + inside + "\n" + bottom + "\n" + ascii_right
 
-        _logger.debug(final)
+        getattr(_logger, level)(final)
+        # _logger.debug(final)
 
     @api.depends("start_date", "end_date")
     def _compute_progress(self):
@@ -350,3 +420,94 @@ class RentalVehiclesOrder(models.Model):
                 </span>
             </div>
             """
+
+    @api.onchange('order_line_ids')
+    def _onchange_order_lines(self):
+        lines = self.order_line_ids.filtered(
+            lambda l: l.type == "tariff" and l.tariff_id.exists()
+        )
+        values = {'rental_days': 0, 'rental_hours': 0}
+        for line in lines:
+            values[f'rental_{line.tariff_id.period_type}s'] = line.quantity
+        self.update(values)
+
+    def _apply_period(self, period_type: Literal['hour', 'day'], quantity):
+        f_name =  f'rental_{period_type}s'
+        self.write({f_name: quantity})
+
+
+class OrderLine(models.Model):
+    _name = "rental_vehicles.order.line"
+    _description = "Order Line"
+    _order = "sequence asc, id asc"
+
+    name = fields.Char(required=True)
+    order_id = fields.Many2one("rental_vehicles.order")
+    sequence = fields.Integer(
+        compute="_compute_sequence",
+        store=True,
+        index=True,
+    )
+
+    type = fields.Selection(ORDER_LINE_TYPE_SELECTION, required=True)
+    product_id = fields.Many2one(
+        "rental_vehicles.accessory",
+        string="Product / Accessory"
+    )
+    office_id = fields.Many2one(related='order_id.office_id')
+    vehicle_model_id = fields.Many2one(related='order_id.vehicle_model_id')
+    tariff_id = fields.Many2one(
+        "rental_vehicles.tariff",
+        string="Tariff",
+        domain="[('office_id', '=', office_id), ('vehicle_model_id', '=', vehicle_model_id)]",
+    )
+
+    quantity = fields.Float('qty', default=1)
+    price = fields.Monetary()
+    total = fields.Monetary(compute="_compute_total", store=True)
+    currency_id = fields.Many2one(related="order_id.currency_id")
+
+    affects_salary = fields.Boolean(
+        string="Affects Manager Salary",
+        default=True,
+    )
+
+    @api.depends("type")
+    def _compute_sequence(self):
+        for rec in self:
+            rec.sequence = ORDER_LINE_SEQUENCE.get(rec.type, 42)
+
+    @api.depends("price", "quantity")
+    def _compute_total(self):
+        for rec in self:
+            rec.total = rec.price * rec.quantity
+
+    @api.onchange("product_id")
+    def _onchange_product_id(self):
+        if self.product_id:
+            self.name = self.product_id.name
+            self.price = self.product_id.default_price
+
+    @api.onchange('tariff_id')
+    def _onchange_tariff_id(self):
+        self.name = self.tariff_id.name
+        self.price = self.tariff_id.price_per_unit
+
+    @api.onchange("type")
+    def _onchange_type(self):
+        if self.type in ("penalty", "sale"):
+            self.affects_salary = False
+        else:
+            self.affects_salary = True
+
+    def unlink(self):
+        self._sync_rental_period()
+        return super().unlink()
+
+    def _sync_rental_period(self):
+        for line in self.filtered(
+            lambda l: l.type == "tariff" and self.tariff_id.exists()
+        ):
+            order = line.order_id
+            period_type = line.tariff_id.period_type
+            order._apply_period(period_type, 0)

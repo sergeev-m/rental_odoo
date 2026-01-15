@@ -10,3 +10,4 @@ from . import maintenance
 from . import maintenance_plan
 from . import maintenance_due_view
 from . import payout
+from . import rental_vehicles_accessory
