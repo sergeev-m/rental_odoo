@@ -122,12 +122,12 @@
                     <separator string="Order lines"/>
                     <field name="order_line_ids" nolabel="1">
                         <list editable="bottom">
-                            <field name="name"/>
                             <field name="type"/>
-                            <field name="product_id"/>
+                            <field name="accessory_id" required="type in ('accessory', 'sale')"/>
                             <field name="quantity"/>
                             <field name="price"/>
                             <field name="total" sum="Total"/>
+                            <field name="name" optional="hide"/>
                             <field name="tariff_id" optional="hide"/>
                             <field name="currency_id" optional="hide"/>
                             <field name="affects_salary" optional="hide"/>

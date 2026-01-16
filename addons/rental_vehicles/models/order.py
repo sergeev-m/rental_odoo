@@ -12,8 +12,8 @@ _logger = getLogger(__name__)
 
 ORDER_LINE_TYPE_SELECTION = [
     ("tariff", "Tariff"),
-    ("addon", "Add-on / Accessory"),
-    ("manual", "Manual Charge"),
+    ("accessory", "Accessory Rental"),
+    ("manual", "Manual"),
     ("penalty", "Penalty"),
     ("sale", "Sale"),
     ("discount", "Discount / Refund"),
@@ -22,8 +22,8 @@ ORDER_LINE_TYPE_SELECTION = [
 ORDER_LINE_SEQUENCE = {
     "tariff": 10,
     "manual": 20,
-    "addon": 30,
-    "sale": 40,
+    "accessory": 30,
+    "sale": 30,
     "discount": 50,
     "penalty": 60,
 }
@@ -442,7 +442,7 @@ class OrderLine(models.Model):
     _description = "Order Line"
     _order = "sequence asc, id asc"
 
-    name = fields.Char(required=True)
+    name = fields.Char()
     order_id = fields.Many2one("rental_vehicles.order")
     sequence = fields.Integer(
         compute="_compute_sequence",
@@ -451,9 +451,9 @@ class OrderLine(models.Model):
     )
 
     type = fields.Selection(ORDER_LINE_TYPE_SELECTION, required=True)
-    product_id = fields.Many2one(
+    accessory_id = fields.Many2one(
         "rental_vehicles.accessory",
-        string="Product / Accessory"
+        string="Accessory"
     )
     office_id = fields.Many2one(related='order_id.office_id')
     vehicle_model_id = fields.Many2one(related='order_id.vehicle_model_id')
@@ -470,7 +470,8 @@ class OrderLine(models.Model):
 
     affects_salary = fields.Boolean(
         string="Affects Manager Salary",
-        default=True,
+        compute='_compute_affects_salary',
+        store=True
     )
 
     @api.depends("type")
@@ -483,19 +484,19 @@ class OrderLine(models.Model):
         for rec in self:
             rec.total = rec.price * rec.quantity
 
-    @api.onchange("product_id")
-    def _onchange_product_id(self):
-        if self.product_id:
-            self.name = self.product_id.name
-            self.price = self.product_id.default_price
+    @api.onchange("accessory_id")
+    def _onchange_accessory_id(self):
+        if self.accessory_id:
+            self.name = self.accessory_id.name
+            self.price = self.accessory_id.default_price
 
     @api.onchange('tariff_id')
     def _onchange_tariff_id(self):
         self.name = self.tariff_id.name
         self.price = self.tariff_id.price_per_unit
 
-    @api.onchange("type")
-    def _onchange_type(self):
+    @api.depends('type')
+    def _compute_affects_salary(self):
         if self.type in ("penalty", "sale"):
             self.affects_salary = False
         else:
@@ -522,7 +523,6 @@ class OrderLine(models.Model):
                 vals["price"] = -abs(vals["price"])
         return super().write(vals)
 
-
     @api.model
     def create(self, vals):
         if isinstance(vals, list):
@@ -534,4 +534,3 @@ class OrderLine(models.Model):
         if vals.get("type") == "discount" and "price" in vals:
             vals["price"] = -abs(vals["price"])
         return super().create(vals)
-
