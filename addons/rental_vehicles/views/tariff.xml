@@ -3,7 +3,7 @@
         <field name="name">rental_vehicles.tariff.form</field>
         <field name="model">rental_vehicles.tariff</field>
         <field name="arch" type="xml">
-            <form string="Tariff">
+            <form string="Tariff" delete="0">
                 <sheet>
                     <group>
                         <field name="office_id" options="{'no_create': False}"/>
@@ -22,7 +22,7 @@
         <field name="name">rental_vehicles.tariff.tree</field>
         <field name="model">rental_vehicles.tariff</field>
         <field name="arch" type="xml">
-            <list>
+            <list delete="0">
                 <field name="office_id" optional="hide"/>
                 <field name="vehicle_model_id"/>
                 <field name="period_type"/>

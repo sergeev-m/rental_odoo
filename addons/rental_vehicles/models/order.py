@@ -497,10 +497,11 @@ class OrderLine(models.Model):
 
     @api.depends('type')
     def _compute_affects_salary(self):
-        if self.type in ("penalty", "sale"):
-            self.affects_salary = False
-        else:
-            self.affects_salary = True
+        for rec in self:
+            if rec.type in ("penalty", "sale"):
+                rec.affects_salary = False
+            else:
+                rec.affects_salary = True
 
     def unlink(self):
         self._sync_rental_period()
