@@ -19,6 +19,8 @@ ORDER_LINE_TYPE_SELECTION = [
     ("discount", "Discount / Refund"),
 ]
 
+SALARY_LINE_TYPES = {'tariff', 'accessory', 'manual', 'discount'}
+
 ORDER_LINE_SEQUENCE = {
     "tariff": 10,
     "manual": 20,
@@ -92,13 +94,11 @@ class RentalVehiclesOrder(models.Model):
     rental_hours = fields.Integer()
     start_date = fields.Datetime(required=True, default=fields.Datetime.now)
     end_date = fields.Datetime(string="End Date", compute="_compute_end_date", store=True)
-    extra_expenses = fields.Float(string="Extra Expenses", default=0.0)
     start_mileage = fields.Integer()
     end_mileage = fields.Integer()
-    currency_id = fields.Many2one(related='tariff_id.currency_id')
-    amount_total = fields.Monetary(currency_field="currency_id", compute="_compute_amount_total", store=True)
-    deposit_amount = fields.Float()
-    
+    currency_id = fields.Many2one(related='office_id.currency_id')
+    amount_total = fields.Monetary(currency_field="currency_id", compute="_compute_amount", store=True)
+    amount_salary_base = fields.Monetary(compute='_compute_amount', store=True)
     status_id = fields.Many2one(
         "rental_vehicles.order.status",
         "Status",
@@ -124,16 +124,6 @@ class RentalVehiclesOrder(models.Model):
         store=True,
         readonly=True,
     )
-    tariff_id = fields.Many2one(
-        "rental_vehicles.tariff",
-        string="Tariff",
-        required=True,
-        domain="[('office_id', '=', office_id), ('vehicle_model_id', '=', vehicle_model_id)]",
-    )
-    tariff_price = fields.Monetary(
-        string="Tariff Price",
-        currency_field="currency_id",
-    )
 
     progress_percent = fields.Integer(compute="_compute_progress", store=False)
     progress_label = fields.Char(compute="_compute_progress", store=False)
@@ -145,14 +135,14 @@ class RentalVehiclesOrder(models.Model):
         string="Order Lines",
     )
 
-    @api.onchange('tariff_id')
-    def _onchange_tarif_id(self):
-        self.ensure_one()
+    # @api.onchange('tariff_id')
+    # def _onchange_tarif_id(self):
+    #     self.ensure_one()
 
-        if self.status_code =='done' or not self.tariff_id:
-            return
+    #     if self.status_code =='done' or not self.tariff_id:
+    #         return
 
-        self.tariff_price = self.tariff_id.price_per_unit
+    #     self.tariff_price = self.tariff_id.price_per_unit
         
     def _create_update_tarif_lines(self, period_type: Literal['hour', 'day']):
         self.ensure_one()
@@ -205,36 +195,36 @@ class RentalVehiclesOrder(models.Model):
     @api.onchange('rental_hours')
     def _onchange_rental_hours(self):
         self._create_update_tarif_lines('hour')
-        if self.rental_days:
-            return
+        # if self.rental_days:
+        #     return
 
-        if not (self.vehicle_id and self.rental_hours):
-            return
+        # if not (self.vehicle_id and self.rental_hours):
+        #     return
 
-        self.tariff_id = False
-        tariff = self.env['rental_vehicles.tariff'].search([
-            ('vehicle_model_id', '=', self.vehicle_model_id.id),
-            ('period_type', '=', 'hour'),
-        ], limit=1)
-        self.tariff_id = tariff.id if tariff else False
+        # self.tariff_id = False
+        # tariff = self.env['rental_vehicles.tariff'].search([
+        #     ('vehicle_model_id', '=', self.vehicle_model_id.id),
+        #     ('period_type', '=', 'hour'),
+        # ], limit=1)
+        # self.tariff_id = tariff.id if tariff else False
         
 
     @api.onchange('rental_days', 'vehicle_id')
     def _onchange_rental_days(self):
-        self.tariff_id = False
+        # self.tariff_id = False
 
-        if not self.vehicle_id:
-            return
+        # if not self.vehicle_id:
+        #     return
 
         self._create_update_tarif_lines('day')
 
-        tariff = self.env['rental_vehicles.tariff'].search([
-            ('vehicle_model_id', '=', self.vehicle_model_id.id),
-            ('period_type', '=', 'day'),
-            ('min_period', '<=', self.rental_days),
-        ], order='min_period desc', limit=1)
+        # tariff = self.env['rental_vehicles.tariff'].search([
+        #     ('vehicle_model_id', '=', self.vehicle_model_id.id),
+        #     ('period_type', '=', 'day'),
+        #     ('min_period', '<=', self.rental_days),
+        # ], order='min_period desc', limit=1)
 
-        self.tariff_id = tariff.id if tariff else False
+        # self.tariff_id = tariff.id if tariff else False
 
     @api.depends("start_date", "rental_days")
     def _compute_end_date(self):
@@ -250,26 +240,20 @@ class RentalVehiclesOrder(models.Model):
             else:
                 rec.end_date = False
         
-    @api.depends('rental_days', 'rental_hours', 'tariff_price', 'extra_expenses')
-    def _compute_amount_total(self):
+    @api.depends(
+        'order_line_ids',
+        'order_line_ids.total',
+        'order_line_ids.type'
+    )
+    def _compute_amount(self):
         for rec in self:
-            total = 0
-
-            if rec.tariff_price and rec.rental_days:
-                total = rec.rental_days * rec.tariff_price
-
-            if rec.rental_hours:
-                tariff_hour = rec.env['rental_vehicles.tariff'].search([
-                    ('vehicle_model_id', '=', rec.vehicle_id.model_id.id),
-                    ('period_type', '=', 'hour'),
-                ], limit=1)
-                if tariff_hour:
-                    total += rec.rental_hours * tariff_hour.price_per_unit
+            rec.amount_total = sum(rec.order_line_ids.mapped('total'))
             
-            if rec.extra_expenses:
-                total += rec.extra_expenses
-
-            rec.amount_total = total
+            rec.amount_salary_base = sum(
+                line.total
+                for line in rec.order_line_ids
+                if line.affects_salary
+            )
 
     def action_start_rental(self):
         for rec in self:
@@ -427,6 +411,10 @@ class RentalVehiclesOrder(models.Model):
         lines = self.order_line_ids.filtered(
             lambda l: l.type == "tariff" and l.tariff_id.exists()
         )
+        
+        if not lines.exists():
+            return
+
         values = {'rental_days': 0, 'rental_hours': 0}
         for line in lines:
             values[f'rental_{line.tariff_id.period_type}s'] = line.quantity
@@ -498,10 +486,7 @@ class OrderLine(models.Model):
     @api.depends('type')
     def _compute_affects_salary(self):
         for rec in self:
-            if rec.type in ("penalty", "sale"):
-                rec.affects_salary = False
-            else:
-                rec.affects_salary = True
+            rec.affects_salary = rec.type in SALARY_LINE_TYPES
 
     def unlink(self):
         self._sync_rental_period()

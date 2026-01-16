@@ -94,6 +94,12 @@ class ManagerPayout(models.Model):
         compute='_compute_revenue',
         store=True
     )
+    revenue_base = fields.Monetary(
+        "Revenue Base",
+        currency_field="currency_id",
+        compute='_compute_revenue',
+        store=True
+    )
     percent_part = fields.Monetary(
         "Percent Part",
         currency_field="currency_id",
@@ -114,15 +120,16 @@ class ManagerPayout(models.Model):
         store=True
     )
 
-    @api.depends('order_ids.amount_total')
+    @api.depends('order_ids.amount_salary_base')
     def _compute_revenue(self):
         for rec in self:
             rec.revenue = sum(rec.order_ids.mapped('amount_total'))
+            rec.revenue_base = sum(rec.order_ids.mapped('amount_salary_base'))
 
     @api.depends('revenue', 'payout_id.salary_percent')
     def _compute_percent_part(self):
         for rec in self:
-            rec.percent_part = rec.revenue  * (rec.payout_id.salary_percent / 100)
+            rec.percent_part = rec.revenue_base  * (rec.payout_id.salary_percent / 100)
 
     @api.depends('payout_id.salary_fixed_usd', 'payout_id.currency_rate_snapshot')
     def _compute_salary_fixed_converted(self):

@@ -54,6 +54,7 @@
                         <list create="0" delete="0">
                             <field name="manager_id"/>
                             <field name="revenue" sum="Total"/>
+                            <field name="revenue_base" sum="Total"/>
                             <field name="percent_part" readonly="1" sum="Total"/>
                             <field name="salary_fixed_converted" sum="Total"/>
                             <field name="total_payout" readonly="1" sum="Total"/>
@@ -63,6 +64,7 @@
                             <group>
                                 <field name="manager_id" readonly="1"/>
                                 <field name="revenue"/>
+                                <field name="revenue_base" sum="Total"/>
                                 <field name="percent_part"/>
                                 <field name="salary_fixed_converted"/>
                                 <field name="total_payout"/>
