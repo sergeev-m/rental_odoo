@@ -40,10 +40,10 @@ class Tarif(models.Model):
         required=True
     )
 
-    _vehicle_model_id_period_type_min_period_unique = models.Constraint(
-        'UNIQUE(vehicle_model_id,period_type,min_period)',
-        'Tariff already exists for this model and period!'
-    )
+    # _vehicle_model_id_period_type_min_period_unique = models.Constraint(
+    #     'UNIQUE(vehicle_model_id,period_type,min_period)',
+    #     'Tariff already exists for this model and period!'
+    # )
 
     def _compute_name(self):
         for rec in self:
