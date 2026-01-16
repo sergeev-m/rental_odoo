@@ -13,16 +13,19 @@ _logger = getLogger(__name__)
 ORDER_LINE_TYPE_SELECTION = [
     ("tariff", "Tariff"),
     ("addon", "Add-on / Accessory"),
+    ("manual", "Manual Charge"),
     ("penalty", "Penalty"),
     ("sale", "Sale"),
     ("discount", "Discount / Refund"),
 ]
+
 ORDER_LINE_SEQUENCE = {
     "tariff": 10,
-    "addon": 20,
-    "sale": 30,
-    "discount": 40,
-    "penalty": 50,
+    "manual": 20,
+    "addon": 30,
+    "sale": 40,
+    "discount": 50,
+    "penalty": 60,
 }
 
 
@@ -305,7 +308,6 @@ class RentalVehiclesOrder(models.Model):
             "context": {"default_order_id": self.id},
         }
 
-
     def _compute_display_name(self):
         for rec in self:
             values = (
@@ -366,7 +368,6 @@ class RentalVehiclesOrder(models.Model):
         final = "\n" + top + "\n" + inside + "\n" + bottom + "\n" + ascii_right
 
         getattr(_logger, level)(final)
-        # _logger.debug(final)
 
     @api.depends("start_date", "end_date")
     def _compute_progress(self):
@@ -511,3 +512,26 @@ class OrderLine(models.Model):
             order = line.order_id
             period_type = line.tariff_id.period_type
             order._apply_period(period_type, 0)
+
+    def write(self, vals):
+        if (
+            vals.get("type") == "discount"
+            or ("type" not in vals and self.type == "discount")
+        ):
+            if "price" in vals:
+                vals["price"] = -abs(vals["price"])
+        return super().write(vals)
+
+
+    @api.model
+    def create(self, vals):
+        if isinstance(vals, list):
+            for v in vals:
+                if v.get("type") == "discount" and "price" in v:
+                    v["price"] = -abs(v["price"])
+            return super().create(vals)
+
+        if vals.get("type") == "discount" and "price" in vals:
+            vals["price"] = -abs(vals["price"])
+        return super().create(vals)
+
