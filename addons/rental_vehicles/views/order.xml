@@ -38,7 +38,8 @@
                 decoration-info="status_decoration == 'info'"
             >
                 <field name="office_id" optional="hide"/>
-                <field name="vehicle_id" class="o_col_3"/>
+                <field name="name" class="o_col_3"/>
+                <field name="vehicle_id" class="o_col_3" optional="hide"/>
                 <field name="start_date" optional="hide"/>
                 <field name="end_date" optional="hide"/>
                 <field name="progress_html" widget="html" width="90" string="Progress"/>
@@ -46,13 +47,9 @@
                 <field name="rental_hours" optional="hide"/>
                 <field name="start_mileage" optional="hide"/>
                 <field name="end_mileage" optional="hide"/>
-                <!-- <field name="tariff_id" optional="hide"/> -->
-                <!-- <field name="tariff_price" optional="hide"/> -->
-                <!-- <field name="extra_expenses" optional="hide" sum="Total"/> -->
                 <field name="amount_total" sum="amount total"/>
                 <field name="amount_salary_base" sum=" total" optional="hide"/>
                 <field name="currency_id" optional="hide"/>
-                <!-- <field name="deposit_amount" optional="hide"/> -->
                 <field name="status_id" optional="hide"/>
                 <field name="status_code" optional="hide"/>
             </list>
@@ -122,7 +119,7 @@
                         <list editable="bottom">
                             <field name="type"/>
                             <field name="accessory_id" required="type in ('accessory', 'sale')"/>
-                            <field name="quantity"/>
+                            <field name="quantity" readonly="type not in ('sale', 'accessory')"/>
                             <field name="price"/>
                             <field name="total" sum="Total"/>
                             <field name="name" optional="hide"/>
@@ -143,7 +140,8 @@
         <field name="arch" type="xml">
             <graph string="Orders" type="bar" disable_linking="0" stacked="1">
                 <field name="start_date"/>
-                <field name="vehicle_id"/>
+                <!-- <field name="vehicle_id"/> -->
+                <field name="name"/>
                 <field name="amount_total" type="measure"/>
             </graph>
         </field>

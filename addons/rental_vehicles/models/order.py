@@ -82,11 +82,12 @@ class RentalVehiclesOrder(models.Model):
     _description = "Rental Vehicles Order"
     _order = "start_date desc"
 
+    name = fields.Char(compute='_compute_name', store=True)
     active = fields.Boolean(default=True)
     office_id = fields.Many2one('rental_vehicles.office')
     vehicle_id = fields.Many2one(
         "rental_vehicles.vehicle",
-        required=True,
+        # required=True,
         domain="[('office_id', '=', office_id), ('status', '=', 'available')]"
     )
     renter_id = fields.Many2one('rental_vehicles.renter')
@@ -135,15 +136,6 @@ class RentalVehiclesOrder(models.Model):
         string="Order Lines",
     )
 
-    # @api.onchange('tariff_id')
-    # def _onchange_tarif_id(self):
-    #     self.ensure_one()
-
-    #     if self.status_code =='done' or not self.tariff_id:
-    #         return
-
-    #     self.tariff_price = self.tariff_id.price_per_unit
-        
     def _create_update_tarif_lines(self, period_type: Literal['hour', 'day']):
         self.ensure_one()
 
@@ -161,6 +153,9 @@ class RentalVehiclesOrder(models.Model):
             self.order_line_ids = self.order_line_ids - tarif_line
             return
 
+        if tarif_line:
+            return
+
         tariff = self.env['rental_vehicles.tariff'].search([
             ('vehicle_model_id', '=', self.vehicle_model_id.id),
             ('period_type', '=', period_type),
@@ -174,18 +169,11 @@ class RentalVehiclesOrder(models.Model):
             'tariff_id': tariff.id,
             "name": tariff.name,
             "price": tariff.price_per_unit,
-            "quantity": self[f_name],
+            "order_id": self.id,
+            "type": "tariff",
         }
+        self.order_line_ids.new({**values})
 
-        if tarif_line:
-            tarif_line.update(values)
-        else:
-            self.order_line_ids.new({
-                **values,
-                "order_id": self.id,
-                "type": "tariff",
-            })
-        
     @api.onchange('vehicle_id')
     def _onchange_vehicle_id(self):
         self.start_mileage = False
@@ -195,36 +183,10 @@ class RentalVehiclesOrder(models.Model):
     @api.onchange('rental_hours')
     def _onchange_rental_hours(self):
         self._create_update_tarif_lines('hour')
-        # if self.rental_days:
-        #     return
-
-        # if not (self.vehicle_id and self.rental_hours):
-        #     return
-
-        # self.tariff_id = False
-        # tariff = self.env['rental_vehicles.tariff'].search([
-        #     ('vehicle_model_id', '=', self.vehicle_model_id.id),
-        #     ('period_type', '=', 'hour'),
-        # ], limit=1)
-        # self.tariff_id = tariff.id if tariff else False
-        
 
     @api.onchange('rental_days', 'vehicle_id')
     def _onchange_rental_days(self):
-        # self.tariff_id = False
-
-        # if not self.vehicle_id:
-        #     return
-
         self._create_update_tarif_lines('day')
-
-        # tariff = self.env['rental_vehicles.tariff'].search([
-        #     ('vehicle_model_id', '=', self.vehicle_model_id.id),
-        #     ('period_type', '=', 'day'),
-        #     ('min_period', '<=', self.rental_days),
-        # ], order='min_period desc', limit=1)
-
-        # self.tariff_id = tariff.id if tariff else False
 
     @api.depends("start_date", "rental_days")
     def _compute_end_date(self):
@@ -261,7 +223,8 @@ class RentalVehiclesOrder(models.Model):
                 raise ValidationError("должен быть статус draft")
         active = self.status_id._active_status
         self.status_id = active.id
-        self.vehicle_id.status = "rented"
+        if self.vehicle_id:
+            self.vehicle_id.status = "rented"
 
     def action_end_rental(self):
         for rec in self:
@@ -269,14 +232,17 @@ class RentalVehiclesOrder(models.Model):
                 raise ValidationError("Завершить можно только активную аренду.")
         done = self.status_id._done_status
         self.status_id = done.id
-        self.vehicle_id.mileage = max(self.vehicle_id.mileage, self.end_mileage)
-        self.vehicle_id.status = "available"
+        if self.vehicle_id:
+            self.vehicle_id.mileage = max(
+                self.vehicle_id.mileage, self.end_mileage
+            )
+            self.vehicle_id.status = "available"
 
     def action_cancel(self):
         for rec in self:
             if rec.status_code not in ("draft", "active"):
                 raise ValidationError("Отменить можно только черновик или активную аренду.")
-            if rec.status_code == "active":
+            if rec.status_code == "active" and self.vehicle_id:
                 rec.vehicle_id.status = "available"
             cancelled = self.status_id._cancelled_status
             rec.status_id = cancelled.id
@@ -292,14 +258,23 @@ class RentalVehiclesOrder(models.Model):
             "context": {"default_order_id": self.id},
         }
 
-    def _compute_display_name(self):
+    @api.depends('vehicle_id', 'order_line_ids')
+    def _compute_name(self):
         for rec in self:
-            values = (
-                rec.id,
-                rec.vehicle_id.name,
-            )
+            values = [rec.id]
+            
+            if rec.vehicle_id:
+                values = (rec.vehicle_id.name,)
+            else:
+                filter_domain = [
+                    ('type', 'in', ('accessory', 'sale')),
+                    ('accessory_id', '!=', False)
+                ]
+                order_lines = rec.order_line_ids.filtered_domain(filter_domain)
+                values = order_lines.mapped('accessory_id.name')
+
             placeholder = ' '.join(['%s'] * len(values))
-            rec.display_name = placeholder % tuple(values) if values else False
+            rec.name = placeholder % tuple(values) if values else False
 
     def write(self, vals):
         old_vehicle_id = self.vehicle_id.id
@@ -411,13 +386,14 @@ class RentalVehiclesOrder(models.Model):
         lines = self.order_line_ids.filtered(
             lambda l: l.type == "tariff" and l.tariff_id.exists()
         )
-        
+
         if not lines.exists():
             return
 
         values = {'rental_days': 0, 'rental_hours': 0}
         for line in lines:
-            values[f'rental_{line.tariff_id.period_type}s'] = line.quantity
+            values.pop(f'rental_{line.tariff_id.period_type}s')
+            # values[f'rental_{line.tariff_id.period_type}s'] = line.quantity
         self.update(values)
 
     def _apply_period(self, period_type: Literal['hour', 'day'], quantity):
@@ -467,10 +443,29 @@ class OrderLine(models.Model):
         for rec in self:
             rec.sequence = ORDER_LINE_SEQUENCE.get(rec.type, 42)
 
-    @api.depends("price", "quantity")
+    @api.depends(
+        "price",
+        "quantity",
+        "type",
+        "order_id.rental_days",
+        "order_id.rental_hours",
+        "tariff_id.period_type",
+    )
     def _compute_total(self):
         for rec in self:
-            rec.total = rec.price * rec.quantity
+            period = 0
+            
+            if rec.type == "tariff":
+                order = rec.order_id
+                if rec.tariff_id and rec.tariff_id.period_type == "hour":
+                    period = max(order.rental_hours, period)
+                else:
+                    period = max(order.rental_days, period)
+
+            elif rec.type == "accessory":
+                period = max(rec.order_id.rental_days, period)
+
+            rec.total = rec.price * rec.quantity * period
 
     @api.onchange("accessory_id")
     def _onchange_accessory_id(self):
