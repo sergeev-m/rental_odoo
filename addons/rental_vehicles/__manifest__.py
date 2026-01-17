@@ -22,6 +22,7 @@
         "views/payout.xml",
         "views/rental_vehicles_accessory.xml",
         "wizard/renter_photo_wizard.xml",
+        "views/rental_vehicles_vehicle_image.xml",
         "views/menu.xml",
     ],
     "installable": True,

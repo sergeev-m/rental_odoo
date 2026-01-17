@@ -55,6 +55,9 @@
                 </list>
               </field>
             </page>
+            <page string="Images">
+                <field name="image_ids" mode="kanban"/>
+            </page>
           </notebook>
 
         </sheet>
