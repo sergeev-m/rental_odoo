@@ -23,20 +23,24 @@
                         <field name="transmission"/>
                         <field name="transmission_type"/>
                         <field name="weight"/>
-                        <field name="image"/>
                     </group>
 
-                    <separator string="Maintenance plans"/>
-
-                    <field name="maintenance_plan_ids">
-                        <list>
-                            <field name="service_type_id"/>
-                            <field name="interval_km"/>
-                            <field name="interval_days"/>
-                            <field name="remind_before_km"/>
-                            <field name="remind_before_days"/>
-                        </list>
-                    </field>
+                    <notebook>
+                        <page string="Maintenance plans">
+                            <field name="maintenance_plan_ids">
+                                <list>
+                                    <field name="service_type_id"/>
+                                    <field name="interval_km"/>
+                                    <field name="interval_days"/>
+                                    <field name="remind_before_km"/>
+                                    <field name="remind_before_days"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Images">
+                            <field name="image_ids" mode="kanban"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

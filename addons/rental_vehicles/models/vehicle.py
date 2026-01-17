@@ -38,11 +38,10 @@ class Vehicle(models.Model):
         compute="_compute_maintenance_due_summary",
         store=False,
     )
-
     image_ids = fields.One2many(
-        "rental_vehicles.vehicle.image",
-        "vehicle_id",
+        related="model_id.image_ids",
         string="Images",
+        readonly=True
     )
 
     @api.depends('maintenance_due_ids', 

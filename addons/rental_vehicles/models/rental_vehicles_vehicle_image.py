@@ -6,11 +6,12 @@ class VehicleImage(models.Model):
     _description = "Vehicle image"
     _order = 'sequence, id asc'
 
-    vehicle_id = fields.Many2one(
-        "rental_vehicles.vehicle",
+    vehicle_model_id = fields.Many2one(
+        "rental_vehicles.vehicle.model",
         required=True,
         ondelete="cascade",
     )
+
     image_1920 = fields.Image(
         string="Image",
         required=True,

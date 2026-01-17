@@ -27,11 +27,12 @@ class VehicleModel(models.Model):
         ('cvt', 'CVT'),
     ])
     weight = fields.Float()
-    image = fields.Binary(
-        string='Image',
-        attachment=True,
-    )
     tariff_ids = fields.Many2one('rental_vehicles.tariff')
+    image_ids = fields.One2many(
+        "rental_vehicles.vehicle.image",
+        "vehicle_model_id",
+        string="Images",
+    )
 
     def _compute_display_name(self):
         for rec in self:
