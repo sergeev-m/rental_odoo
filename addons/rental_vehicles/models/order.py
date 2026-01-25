@@ -136,24 +136,21 @@ class RentalVehiclesOrder(models.Model):
         string="Order Lines",
     )
 
-    def _create_update_tarif_lines(self, period_type: Literal['hour', 'day']):
+    def _create_update_tariff_lines(self, period_type: Literal['hour', 'day']):
         self.ensure_one()
 
         if not self.vehicle_id:
             return
 
         f_name = f'rental_{period_type}s'
-        tarif_filter = (
+        tariff_filter = (
             lambda r: r.type == "tariff"
             and r.tariff_id.period_type == period_type
         )
-        tarif_line = self.order_line_ids.filtered(tarif_filter)
+        tariff_line = self.order_line_ids.filtered(tariff_filter)
 
         if self[f_name] == 0:
-            self.order_line_ids = self.order_line_ids - tarif_line
-            return
-
-        if tarif_line:
+            self.order_line_ids = self.order_line_ids - tariff_line
             return
 
         tariff = self.env['rental_vehicles.tariff'].search([
@@ -167,8 +164,16 @@ class RentalVehiclesOrder(models.Model):
 
         values = {
             'tariff_id': tariff.id,
-            "name": tariff.name,
-            "price": tariff.price_per_unit,
+            'name': tariff.name,
+            'price': tariff.price_per_unit,
+        }
+
+        if tariff_line and tariff_line.tariff_id != tariff.id:
+            tariff_line.update(values)
+            return
+
+        values = {
+            **values,
             "order_id": self.id,
             "type": "tariff",
         }
@@ -182,11 +187,11 @@ class RentalVehiclesOrder(models.Model):
     
     @api.onchange('rental_hours')
     def _onchange_rental_hours(self):
-        self._create_update_tarif_lines('hour')
+        self._create_update_tariff_lines('hour')
 
     @api.onchange('rental_days', 'vehicle_id')
     def _onchange_rental_days(self):
-        self._create_update_tarif_lines('day')
+        self._create_update_tariff_lines('day')
 
     @api.depends("start_date", "rental_days")
     def _compute_end_date(self):
