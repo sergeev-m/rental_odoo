@@ -458,7 +458,7 @@ class OrderLine(models.Model):
     )
     def _compute_total(self):
         for rec in self:
-            period = 0
+            period = 1
             
             if rec.type == "tariff":
                 order = rec.order_id
