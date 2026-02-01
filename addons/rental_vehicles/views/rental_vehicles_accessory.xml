@@ -3,11 +3,12 @@
         <field name="name">accessory.list</field>
         <field name="model">rental_vehicles.accessory</field>
         <field name="arch" type="xml">
-            <list>
+            <list editable="bottom">
                 <field name="name"/>
                 <field name="office_id"/>
                 <field name="default_price"/>
                 <field name="currency_id"/>
+                <field name="affects_salary"/>
             </list>
         </field>
     </record>
@@ -23,6 +24,7 @@
                         <field name="office_id"/>
                         <field name="default_price"/>
                         <field name="currency_id"/>
+                        <field name="affects_salary"/>
                     </group>
                 </sheet>
             </form>

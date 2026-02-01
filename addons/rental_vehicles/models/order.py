@@ -19,7 +19,10 @@ ORDER_LINE_TYPE_SELECTION = [
     ("discount", "Discount / Refund"),
 ]
 
+ORDER_LINE_TYPES = {i[0] for i in ORDER_LINE_TYPE_SELECTION}
 SALARY_LINE_TYPES = {'tariff', 'accessory', 'manual', 'discount'}
+
+assert not (SALARY_LINE_TYPES - ORDER_LINE_TYPES), f"Invalid SALARY_LINE_TYPES, should be {ORDER_LINE_TYPES}"
 
 ORDER_LINE_SEQUENCE = {
     "tariff": 10,
@@ -483,10 +486,13 @@ class OrderLine(models.Model):
         self.name = self.tariff_id.name
         self.price = self.tariff_id.price_per_unit
 
-    @api.depends('type')
+    @api.depends('type', 'accessory_id.affects_salary')
     def _compute_affects_salary(self):
         for rec in self:
-            rec.affects_salary = rec.type in SALARY_LINE_TYPES
+            rec.affects_salary = (
+                rec.type in SALARY_LINE_TYPES
+                or rec.accessory_id and rec.accessory_id.affects_salary
+            )
 
     def unlink(self):
         self._sync_rental_period()

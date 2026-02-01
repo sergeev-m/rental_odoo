@@ -14,3 +14,4 @@ class Accessory(models.Model):
         related='office_id.currency_id'
     )
     active = fields.Boolean(default=True)
+    affects_salary = fields.Boolean(default=False)
