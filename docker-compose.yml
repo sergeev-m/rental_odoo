@@ -30,7 +30,7 @@ volumes:
 services:
   rental_odoo_db:
     container_name: rental_odoo_db
-    image: postgres:16
+    image: postgres:17-alpine
     restart: always
     volumes:
       - rental-odoo-db-data:/var/lib/postgresql/data/pgdata
