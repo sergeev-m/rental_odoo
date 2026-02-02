@@ -21,7 +21,7 @@ class ResUsers(models.Model):
         user = self.env.user
         ctx = dict(super().context_get())
         ctx.update({
-            "allowed_office_ids": user.office_ids.ids,
+            "allowed_office_ids": user.office_ids.ids if hasattr(user, "office_ids") else [],
             "office_id": user.office_ids[:1].id if user.office_ids else False,
         })
         return frozendict(ctx)
