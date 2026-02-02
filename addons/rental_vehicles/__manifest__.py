@@ -7,6 +7,8 @@
     # "depends": ["base", "mail"],
     "data": [
         "security/ir.model.access.csv",
+        "security/groups.xml",
+        "security/ir_rule.xml",
         # "security/security.xml",
         "views/vehicle_type_views.xml",
         "views/vehicle_models.xml",
@@ -23,6 +25,7 @@
         "views/rental_vehicles_accessory.xml",
         "wizard/renter_photo_wizard.xml",
         "views/rental_vehicles_vehicle_image.xml",
+        "views/res_users.xml",
         "views/menu.xml",
     ],
     "installable": True,

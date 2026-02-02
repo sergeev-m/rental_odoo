@@ -1,0 +1,11 @@
+<odoo>
+
+    <record model="res.groups" id="rental_vehicles_manager">
+        <field name="name">Manager</field>
+    </record>
+
+    <record model="res.groups" id="rental_vehicles_supervisor">
+        <field name="name">Supervisor</field>
+    </record>
+
+</odoo>

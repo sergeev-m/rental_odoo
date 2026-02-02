@@ -5,15 +5,13 @@
       <field name="arch" type="xml">
         <form string="Maintenance">
           <sheet>
-            
             <group>
               <field name="vehicle_id" readonly="1"/>
               <field name="date"/>
               <field name="mileage"/>
             </group>
-
-            <group string="Types of services">
-              <field name="maintenance_line_ids" nolabel="1">
+            <group string="Types of services" >
+              <field name="maintenance_line_ids" nolabel="1" colspan="3">
                 <list>
                   <field name="service_type_id"/>
                   <field name="cost" sum="Total"/>
@@ -29,7 +27,6 @@
             <group>
               <field name="note"/>
             </group>
-          
           </sheet>
         </form>
       </field>

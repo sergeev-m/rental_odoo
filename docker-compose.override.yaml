@@ -4,6 +4,13 @@ services:
       - "${ODOO_PORT:-8069}:${ODOO_HTTP_PORT:-8069}"
     command: ["odoo", "-u", "rental_vehicles", "--dev=xml", "--without-demo=True"]
     # command: ["odoo", "--db-filter=^$"]
+#    command: ["odoo", "--dev=xml", "--without-demo=True"]
+
+    develop: # --watch
+      watch:
+        - action: restart  # rebuild, restart
+          path: ./addons
+          target: /mnt/extra-addons
 
     labels:
       - "traefik.http.routers.rental-odoo.rule=Host(`rental.docker.localhost`)"

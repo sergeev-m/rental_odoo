@@ -45,3 +45,14 @@ class RentalOffice(models.Model):
             office.currency_id.active = True
         
         return office
+
+
+class OfficeMixin(models.AbstractModel):
+    _name = "rental_vehicles.office.mixin"
+
+    office_id = fields.Many2one(
+        "rental_vehicles.office",
+        index=True,
+        required=True,
+        default=lambda self: self.env.context.get("office_id"),
+    )

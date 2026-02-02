@@ -1,0 +1,75 @@
+<odoo>
+
+    <record id="rental_vehicles.rule_vehicles_office_manager" model="ir.rule">
+        <field name="name">Vehicles: office restriction</field>
+        <field name="model_id" ref="model_rental_vehicles_vehicle"/>
+        <field name="groups" eval="[(4, ref('rental_vehicles.rental_vehicles_manager'))]"/>
+        <field name="domain_force">
+            [('office_id', 'in', user.office_ids.ids)]
+        </field>
+    </record>
+
+    <record id="rental_vehicles.rule_order_office_manager" model="ir.rule">
+        <field name="name">Order: office restriction</field>
+        <field name="model_id" ref="model_rental_vehicles_order"/>
+        <field name="groups" eval="[(4, ref('rental_vehicles.rental_vehicles_manager'))]"/>
+        <field name="domain_force">
+            ['|', ('office_id', 'in', user.office_ids.ids), ('office_id','=',False)]
+        </field>
+    </record>
+
+    <record id="rental_vehicles.rule_office_manager" model="ir.rule">
+        <field name="name">Office: office restriction</field>
+        <field name="model_id" ref="model_rental_vehicles_office"/>
+        <field name="groups" eval="[(4, ref('rental_vehicles.rental_vehicles_manager'))]"/>
+        <field name="domain_force">
+            [('id', 'in', user.office_ids.ids)]
+        </field>
+    </record>
+
+    <record id="rental_vehicles.rule_accessory_office_manager" model="ir.rule">
+        <field name="name">Accessory: office restriction</field>
+        <field name="model_id" ref="model_rental_vehicles_accessory"/>
+        <field name="groups" eval="[(4, ref('rental_vehicles.rental_vehicles_manager'))]"/>
+        <field name="domain_force">
+            [('office_id', 'in', user.office_ids.ids)]
+        </field>
+    </record>
+
+    <record id="rental_vehicles.rule_payout_office_manager" model="ir.rule">
+        <field name="name">Payout: office restriction</field>
+        <field name="model_id" ref="model_rental_vehicles_payout"/>
+        <field name="groups" eval="[(4, ref('rental_vehicles.rental_vehicles_manager'))]"/>
+        <field name="domain_force">
+            [('office_id', 'in', user.office_ids.ids)]
+        </field>
+    </record>
+
+    <record id="rental_vehicles.rule_maintenance_due_office_manager" model="ir.rule">
+        <field name="name">Maintenance due: office restriction</field>
+        <field name="model_id" ref="model_rental_vehicles_maintenance_due"/>
+        <field name="groups" eval="[(4, ref('rental_vehicles.rental_vehicles_manager'))]"/>
+        <field name="domain_force">
+            [('office_id', 'in', user.office_ids.ids)]
+        </field>
+    </record>
+
+    <record id="rental_vehicles.rule_tariff_office_manager" model="ir.rule">
+        <field name="name">Tariff: office restriction</field>
+        <field name="model_id" ref="model_rental_vehicles_tariff"/>
+        <field name="groups" eval="[(4, ref('rental_vehicles.rental_vehicles_manager'))]"/>
+        <field name="domain_force">
+            [('office_id', 'in', user.office_ids.ids)]
+        </field>
+    </record>
+
+    <record id="rental_vehicles.rule_maintenance_office_manager" model="ir.rule">
+        <field name="name">Maintenance: office restriction</field>
+        <field name="model_id" ref="model_rental_vehicles_maintenance"/>
+        <field name="groups" eval="[(4, ref('rental_vehicles.rental_vehicles_manager'))]"/>
+        <field name="domain_force">
+            [('office_id', 'in', user.office_ids.ids)]
+        </field>
+    </record>
+
+</odoo>

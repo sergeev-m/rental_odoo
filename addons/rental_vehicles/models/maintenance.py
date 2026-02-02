@@ -12,6 +12,7 @@ class RentalMaintenance(models.Model):
     date = fields.Date(default=fields.Date.today, index=True)
     mileage = fields.Integer(required=True)
     note = fields.Text("Notes")
+    office_id = fields.Many2one(related='vehicle_id.office_id', string="Office")
 
     maintenance_line_ids = fields.One2many("rental_vehicles.maintenance.line", "maintenance_id", string="Maintenance Lines")
     total_cost = fields.Float("Total Cost", compute="_compute_total_cost", store=True)

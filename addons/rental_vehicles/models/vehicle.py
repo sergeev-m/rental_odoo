@@ -4,6 +4,7 @@ from odoo.tools import format_date
 
 class Vehicle(models.Model):
     _name = "rental_vehicles.vehicle"
+    _inherit = ['rental_vehicles.office.mixin']
     _description = "Vehicle"
     _order="sequence"
 
@@ -14,7 +15,6 @@ class Vehicle(models.Model):
     year = fields.Char()
     purchase_price = fields.Integer()
     mileage = fields.Integer(string="Current Mileage", default=0)
-    office_id = fields.Many2one("rental_vehicles.office", string="Office", required=True)
     vehicle_type_id = fields.Many2one(related='model_id.vehicle_type_id')
     status = fields.Selection([
         ("available", "Available"),

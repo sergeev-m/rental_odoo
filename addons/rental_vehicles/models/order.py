@@ -82,12 +82,12 @@ class StatusBarOrder(models.Model):
 
 class RentalVehiclesOrder(models.Model):
     _name = "rental_vehicles.order"
+    _inherit = ['rental_vehicles.office.mixin']
     _description = "Rental Vehicles Order"
     _order = "start_date desc"
 
     name = fields.Char(compute='_compute_name', store=True)
     active = fields.Boolean(default=True)
-    office_id = fields.Many2one('rental_vehicles.office')
     vehicle_id = fields.Many2one(
         "rental_vehicles.vehicle",
         # required=True,
@@ -160,6 +160,7 @@ class RentalVehiclesOrder(models.Model):
             ('vehicle_model_id', '=', self.vehicle_model_id.id),
             ('period_type', '=', period_type),
             ('min_period', '<=', self[f_name]),
+            ('office_id', '=', self.office_id.id)
         ], order='min_period desc', limit=1)
         
         if not tariff:
