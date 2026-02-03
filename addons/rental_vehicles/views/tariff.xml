@@ -6,7 +6,7 @@
             <form string="Tariff" delete="0">
                 <sheet>
                     <group>
-                        <field name="office_id" options="{'no_create': False}"/>
+                        <field name="office_id" options="{'no_create': True}" invisible="office_id"/>
                         <field name="vehicle_model_id"/>
                         <field name="period_type"/>
                         <field name="min_period"/>

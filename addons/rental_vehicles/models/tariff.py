@@ -1,18 +1,14 @@
 from odoo import models, fields, api
 
 
-class Tarif(models.Model):
+class Tariff(models.Model):
     _name = "rental_vehicles.tariff"
+    _inherit = ['rental_vehicles.office.mixin']
     _description = "Tariff"
     _order = "vehicle_model_id, period_type, min_period asc"
 
     name = fields.Char(compute='_compute_name')
     active = fields.Boolean(default=True)
-    office_id = fields.Many2one(
-        "rental_vehicles.office",
-        string="Office",
-        required=True
-    )
     vehicle_model_id = fields.Many2one(
         "rental_vehicles.vehicle.model",
         string="Vehicle Model",
@@ -39,11 +35,6 @@ class Tarif(models.Model):
         string="Currency",
         required=True
     )
-
-    # _vehicle_model_id_period_type_min_period_unique = models.Constraint(
-    #     'UNIQUE(vehicle_model_id,period_type,min_period)',
-    #     'Tariff already exists for this model and period!'
-    # )
 
     def _compute_name(self):
         for rec in self:

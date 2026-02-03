@@ -5,7 +5,7 @@ class RentalOffice(models.Model):
     _name = "rental_vehicles.office"
     _description = "Rental Office"
 
-    name = fields.Char(compute="_compute_name")
+    name = fields.Char(compute="_compute_name", store=True)
     city = fields.Char(required=True)
     country_id = fields.Many2one(
         "res.country",
@@ -25,12 +25,13 @@ class RentalOffice(models.Model):
     salary_fixed_usd = fields.Float("Fixed Salary (USD)", default=150)
     salary_percent = fields.Float("Percent from Revenue (%)", default=30)
 
-
+    @api.depends('country_id', 'city')
     def _compute_name(self):
         for rec in self:
-            rec.name = '---'
+            name = '---'
             if all((rec.country_id, rec.city)):
-                rec.name = f'{rec.country_id.name} - {rec.city}'
+                name = f'{rec.country_id.name} - {rec.city}'
+            rec.name = name
 
     @api.onchange("country_id")
     def _onchange_country_id(self):
@@ -49,6 +50,7 @@ class RentalOffice(models.Model):
 
 class OfficeMixin(models.AbstractModel):
     _name = "rental_vehicles.office.mixin"
+    _description = "Office Mixin"
 
     office_id = fields.Many2one(
         "rental_vehicles.office",
