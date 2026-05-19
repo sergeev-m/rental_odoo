@@ -172,8 +172,9 @@ class RentalVehiclesOrder(models.Model):
             'price': tariff.price_per_unit,
         }
 
-        if tariff_line and tariff_line.tariff_id != tariff.id:
-            tariff_line.update(values)
+        if tariff_line:
+            if tariff_line.tariff_id.id != tariff.id:
+                tariff_line.update(values)
             return
 
         values = {
@@ -395,14 +396,14 @@ class RentalVehiclesOrder(models.Model):
         lines = self.order_line_ids.filtered(
             lambda l: l.type == "tariff" and l.tariff_id.exists()
         )
-
-        if not lines.exists():
-            return
-
         values = {'rental_days': 0, 'rental_hours': 0}
+
         for line in lines:
             values.pop(f'rental_{line.tariff_id.period_type}s')
-            # values[f'rental_{line.tariff_id.period_type}s'] = line.quantity
+        
+        if not values:
+            return
+
         self.update(values)
 
     def _apply_period(self, period_type: Literal['hour', 'day'], quantity):

@@ -7,3 +7,4 @@ venv/
 
 .idea/
 .odoo_lsp.json
+odoo/
