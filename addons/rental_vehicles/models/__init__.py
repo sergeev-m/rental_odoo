@@ -13,4 +13,4 @@ from . import maintenance_due_view
 from . import payout
 from . import rental_vehicles_accessory
 from . import rental_vehicles_vehicle_image
-
+from . import rental_vehicles_training_lesson

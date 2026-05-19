@@ -26,6 +26,7 @@
         "wizard/renter_photo_wizard.xml",
         "views/rental_vehicles_vehicle_image.xml",
         "views/res_users.xml",
+        "views/rental_vehicles_training_lesson.xml",
         "views/menu.xml",
     ],
     "installable": True,

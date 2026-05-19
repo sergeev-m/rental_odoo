@@ -1,0 +1,27 @@
+<odoo>
+    <record id="rental_vehicles.training_lesson_calendar" model="ir.ui.view">
+        <field name="name">rental_vehicles.training.lesson.calendar</field>
+        <field name="model">rental_vehicles.training.lesson</field>
+        <field name="arch" type="xml">
+            <calendar
+                string="Training Schedule"
+                date_start="start_datetime"
+                date_stop="end_datetime"
+                color="instructor_id"
+                mode="week">
+                <field name="partner_id"/>
+                <field name="instructor_id"/>
+                <!-- <field name="vehicle_id"/> -->
+                <field name="state"/>
+                <field name="amount_total"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="rental_vehicles.training_lesson_action" model="ir.actions.act_window">
+        <field name="name">Lessons</field>
+        <field name="res_model">rental_vehicles.training.lesson</field>
+        <field name="view_mode">calendar</field>
+    </record>
+
+</odoo>

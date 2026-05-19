@@ -23,5 +23,7 @@
       <menuitem id="menu_rental_vehicles_manufacturer" name="Manufacturers" action="rental_vehicles.manufacturer_window" sequence="70"/>
       <menuitem id="menu_rental_vehicles_service_type" name="Service Types" action="rental_vehicles.service_type_window" sequence="80"/>
     </menuitem>
+    <menuitem id="rental_vehicles_training_lesson_menu" name="Lesson" action="rental_vehicles.training_lesson_action" sequence="100"/>
+
   </menuitem>
 </odoo>
