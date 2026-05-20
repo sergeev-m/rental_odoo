@@ -16,7 +16,11 @@ class RentalTrainingLesson(models.Model):
         default="Training Lesson"
     )
 
-    instructor_id = fields.Many2one("res.users", string="Instructor")
+    instructor_id = fields.Many2one(
+        "res.users",
+        string="Instructor",
+        default=lambda self: self.env.user.id
+    )
     start_datetime = fields.Datetime(required=True)
     end_datetime = fields.Datetime(
         compute="_compute_end_datetime",
