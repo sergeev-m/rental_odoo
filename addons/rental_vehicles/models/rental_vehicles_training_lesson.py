@@ -39,7 +39,6 @@ class RentalTrainingLesson(models.Model):
         ("planned", "Planned"),
         ("done", "Done"),
         ("cancelled", "Cancelled"),
-        ("no_show", "No Show"),
     ], default="draft", tracking=True)
 
     notes = fields.Text()
@@ -98,22 +97,5 @@ class RentalTrainingLesson(models.Model):
     def action_done(self):
         self.write({"state": "done"})
 
-    def action_no_show(self):
-        self.write({"state": "no_show"})
-
     def action_cancel(self):
         self.write({"state": "cancelled"})
-
-    @api.depends("name", "state")
-    def _compute_display_name(self):
-        state_map = {
-            "draft": "Draft",
-            "planned": "Planned",
-            "done": "Done",
-            "cancelled": "Cancelled",
-            "no_show": "No Show",
-        }
-
-        for rec in self:
-            state_label = state_map.get(rec.state, rec.state or "")
-            rec.display_name = f"{rec.name} · {state_label}" if state_label else rec.name

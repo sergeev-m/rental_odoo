@@ -22,14 +22,6 @@
                     />
 
                     <button
-                        name="action_no_show"
-                        type="object"
-                        string="No Show"
-                        class="btn-warning"
-                        invisible="state != 'planned'"
-                    />
-
-                    <button
                         name="action_cancel"
                         type="object"
                         string="Cancel"
